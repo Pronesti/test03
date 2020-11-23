@@ -1,0 +1,49 @@
+
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+.navbar-laravel {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.instaFont{
+  font-family: billabong, 'billabongregular';
+  text-align: center;
+  font-weight: 300;
+  font-size: 2rem;
+  letter-spacing: -1.5px;
+}
+
+.appBar{
+  height: 3.5rem;
+}
+
+.editProfileButton{
+  font-weight: bold;
+  max-height: 2.5rem;
+  border-color: darkgrey;
+  color: black;
+}
+
+.settingsButton{
+  height: 2rem;
+  width: 2rem;
+}
+
+@font-face {
+  font-family: 'billabongregular';
+  src: url('https://cdn.rawgit.com/milktronics/beaglegr.am/master/public/fonts/billabong-webfont.eot');
+  src: url('https://cdn.rawgit.com/milktronics/beaglegr.am/master/public/fonts/billabong-webfont.eot?#iefix') format('embedded-opentype'),
+       url('https://cdn.rawgit.com/milktronics/beaglegr.am/master/public/fonts/billabong-webfont.woff') format('woff'),
+       url('https://cdn.rawgit.com/milktronics/beaglegr.am/master/public/fonts/billabong-webfont.ttf') format('truetype'),
+       url('https://cdn.rawgit.com/milktronics/beaglegr.am/master/public/fonts/billabong-webfont.svg#billabongregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}

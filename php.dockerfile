@@ -11,3 +11,7 @@ RUN chown laravel:laravel /var/www/html
 WORKDIR /var/www/html
 
 RUN docker-php-ext-install pdo pdo_mysql
+
+COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/bin/
+
+RUN install-php-extensions gd
