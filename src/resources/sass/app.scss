@@ -20,21 +20,19 @@
   font-size: 2rem;
   letter-spacing: -1.5px;
 }
-
-.appBar{
-  height: 3.5rem;
+@media (min-width: 1024px){
+  .appBar{
+    height: 3.5rem;
 }
+
+}
+
 
 .editProfileButton{
   font-weight: bold;
   max-height: 2.5rem;
   border-color: darkgrey;
   color: black;
-}
-
-.settingsButton{
-  height: 2rem;
-  width: 2rem;
 }
 
 @font-face {

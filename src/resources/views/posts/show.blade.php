@@ -2,41 +2,48 @@
 
 @section('content')
 <div class="container">
-<div class="row">
-    <div class="col-8">
-        <img class="w-100" src="/storage/{{$post->image}}" alt="{{$post->caption}}">
-    </div>
-    <div class="col-4">
-        <div>
-            <div class="row">
-                <div class="d-flex align-items-center"> 
-                    <div class="pr-3">
-                        <img class="w-100 rounded-circle" style="max-width: 4rem;" src="/storage/{{$post->user->profile->profileImg}}" alt="" />
-                    </div>
-                    <div>
-                        <div class="font-weight-bold">
-                            <a class="text-dark" href="/profile/{{$post->user->id}}">{{$post->user->username}}</a>
-                            <a href="#" class="pl-2"> Follow </a>
+    <div class="row">
+        <div class="col-12 col-md-8 px-0"><img class="w-100" src="/storage/{{$post->image}}" alt="{{$post->caption}}"></div>
+        <div class="col-12 col-md-4 bg-white p-3">
+            <div class="container ">
+                <div class="row d-flex">
+                        <div class="col-3">
+                            <img class="w-100 rounded-circle" style="max-width: 3rem;" src="{{$post->user->profile->profileImage()}}" alt="" />
                         </div>
-                        <div class="text-muted">location</div>
+                        <div class="col-9">
+                            <div class="font-weight-bold">
+                                <div class="d-flex">
+                                    <a class="text-dark pr-4" href="/profile/{{$post->user->id}}">{{$post->user->username}}</a>
+                                    @can('update', $post->user->profile)
+                                    @else
+                                    <follow-button user-id="{{$post->user->id}}" follows="{{ $follows }}" ></follow-button>
+                                    @endcan
+                                </div>
+                            </div>
+                            <div class="text-muted">location</div>
+                        </div>
+                    </div>
+                <hr>
+                <div class="row">
+                    <div class="col-3">
+                        <img class="w-100 rounded-circle" style="max-width: 3rem;" src="{{$post->user->profile->profileImage()}}" alt="" />
+                    </div>
+                    <div class="col-9">
+                        <div class="d-flex align-items-center">
+                            <span class="font-weight-bold mr-1"><a class="text-dark" href="/profile/{{$post->user->id}}">{{$post->user->username}}</a> </span>
+                            <div> {{$post->caption }} </div>
+                        </div>
+                        <div class="mt-2 text-muted"> {{$post->created_at}} </div>
                     </div>
                 </div>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-4">
-                    <img class="w-100 rounded-circle" style="max-width: 5rem;" src="/storage/{{$post->user->profile->profileImg}}" alt="" />
-                </div>
-                <div class="col-8">
-                    <div class="d-flex align-items-center">
-                        <span class="font-weight-bold mr-1"><a class="text-dark" href="/profile/{{$post->user->id}}">{{$post->user->username}}</a> </span>
-                        <div> {{$post->caption }} </div>
-                    </div>
-                <div class="mt-2 text-muted"> {{$post->created_at}} </div>
+                <hr>
+                <div class="row d-block">
+                    <like-button post-id="{{$post->id}}" likes="{{ $likes }}"></like-button>
+                    <strong>{{$post->likes()->count()}} Me gusta</strong>
+                    <div class="mt-2 text-muted"> {{$ago}} </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 @endsection

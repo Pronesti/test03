@@ -8,7 +8,11 @@ class ProfilesController extends Controller
 {
     public function show(\App\User $user)
     {
-        $follows = (auth()->user()) ? auth()->user()->following->contains($user->id) : false;
+        $follows = false;
+        if(auth()->user()){
+            $follows = auth()->user()->following->contains($user->id);
+        }
+        
         if(!$user->exists){
             $user = auth()->user();
         }

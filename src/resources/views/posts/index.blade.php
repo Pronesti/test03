@@ -30,11 +30,14 @@
         <div>
             <div class="row">
                 <div class="col-12">
+                    <like-button post-id="{{$post->id}}" likes="{{ $post->likes->contains(Auth::user()->id) }}"></like-button>
+                        <strong>{{$post->likes()->count()}} Me gusta</strong>
                     <div class="d-flex align-items-center">
                         <span class="font-weight-bold mr-1"><a class="text-dark" href="/profile/{{$post->user->id}}">{{$post->user->username}}</a> </span>
                         <div> {{$post->caption }} </div>
                     </div>
-                <div class="mt-2 text-muted"> {{$post->created_at}} </div>
+                
+                <div class="mt-2 text-muted"><a class="text-muted" href="/p/{{$post->id}}"> {{$post->created_at->diffForHumans()}} </a></div>
                 </div>
             </div>
         </div>
@@ -45,7 +48,7 @@
 @endforeach
 <div class="row">
     <div class="col-8 offset-2 d-flex justify-content-center">
-        {{ $posts->links() }}
+        {{ $posts->links()}}
     </div>
 </div>
 </div>

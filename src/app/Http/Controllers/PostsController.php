@@ -13,6 +13,7 @@ class PostsController extends Controller
 
     public function index(){
         $users = auth()->user()->following()->pluck('profiles.user_id');
+        $users[]= auth()->user()->id;
         $posts = \App\Post::whereIn('user_id', $users)->with('user')->latest()->paginate(5);
         return view('posts.index',compact('posts'));
     }
@@ -38,8 +39,9 @@ class PostsController extends Controller
         return redirect('/profile/' . auth()->user()->id);
     }
     public function show(\App\Post $post){
-        return view('posts.show', [
-            'post' => $post,
-        ]);
+        $ago = $post['created_at']->diffForHumans();
+        $likes = (auth()->user()) ? auth()->user()->liking->contains($post->id) : false;
+        $follows = (auth()->user()) ? auth()->user()->following->contains($post->user->id) : false;
+        return view('posts.show', ['post' => $post, 'likes' => $likes, 'follows' => $follows, 'ago' => $ago]);
     }
 }
