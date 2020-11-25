@@ -19,6 +19,8 @@ Route::get('/', 'PostsController@index')->name('post.index');
 Auth::routes();
 
 Route::post('follow/{user}', 'FollowsController@store')->name('follow.store');
+Route::post('comment/{post}', 'CommentsController@store')->name('comment.store');
+
 Route::post('like/{post}', 'LikesController@store')->name('like.store');
 Route::get('like/all', 'LikesController@index')->name('like.index');
 

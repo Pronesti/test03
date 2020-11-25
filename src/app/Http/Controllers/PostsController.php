@@ -42,6 +42,7 @@ class PostsController extends Controller
         $ago = $post['created_at']->diffForHumans();
         $likes = (auth()->user()) ? auth()->user()->liking->contains($post->id) : false;
         $follows = (auth()->user()) ? auth()->user()->following->contains($post->user->id) : false;
-        return view('posts.show', ['post' => $post, 'likes' => $likes, 'follows' => $follows, 'ago' => $ago]);
+        $comments = \App\Comment::get()->where('post_id',$post->id);
+        return view('posts.show', ['post' => $post, 'likes' => $likes, 'follows' => $follows, 'ago' => $ago, 'comments' => $comments]);
     }
 }

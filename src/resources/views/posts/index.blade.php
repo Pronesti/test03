@@ -36,6 +36,12 @@
                         <span class="font-weight-bold mr-1"><a class="text-dark" href="/profile/{{$post->user->id}}">{{$post->user->username}}</a> </span>
                         <div> {{$post->caption }} </div>
                     </div>
+                    @foreach ($post->comments as $comment)
+                    <div class="d-flex align-items-center">
+                        <span class="font-weight-bold mr-1"><a class="text-dark" href="/profile/{{$comment->user->id}}">{{$comment->user->username}}</a> </span>
+                        <div> {{$comment->comment_text }} </div>
+                    </div>
+                    @endforeach
                 
                 <div class="mt-2 text-muted"><a class="text-muted" href="/p/{{$post->id}}"> {{$post->created_at->diffForHumans()}} </a></div>
                 </div>
