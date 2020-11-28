@@ -12,7 +12,7 @@ class Post extends Model
      * @var array
      */
     protected $fillable = [
-        'caption', 'image', 'updated_at', 'created_at',
+        'caption', 'image', 'updated_at', 'created_at', 'location'
     ];
 
     protected $dates = [

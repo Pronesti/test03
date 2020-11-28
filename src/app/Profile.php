@@ -12,7 +12,7 @@ class Profile extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'description', 'url', 'profileImg',
+        'title', 'description', 'url', 'profileImg', 'protected'
     ];
 
     public function profileImage(){
@@ -25,5 +25,9 @@ class Profile extends Model
 
     public function followers(){
         return $this->belongsToMany(User::class);
+    }
+
+    public function getProtected(){
+        return $this->protected;
     }
 }

@@ -48,7 +48,7 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="/profile/">
+                                    <a class="dropdown-item" href="/{{ Auth::user()->username }}">
                                         Profile
                                     </a>
                                     <a class="dropdown-item" href="/like/all">

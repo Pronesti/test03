@@ -3,20 +3,29 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProfilesController extends Controller
 {
-    public function show(\App\User $user)
+    public function show($username)
     {
+        $user = \App\User::where('username', $username)->firstOrFail();
+
+        $loggedUser = Auth::user();
+
         $follows = false;
-        if(auth()->user()){
-            $follows = auth()->user()->following->contains($user->id);
+        if(Auth::check()){
+            $follows = $loggedUser->following->contains($user->id);
         }
-        
-        if(!$user->exists){
-            $user = auth()->user();
+
+        $willShow = true;
+        if($user->profile->protected){
+            if(!$follows && !Auth::check() || !$loggedUser->id == $user->id){
+                    $willShow = false;
+            }
         }
-        return view('profiles.show', compact('user', 'follows'));
+    
+        return view('profiles.show', compact('user', 'follows', 'willShow'));
     }
 
     public function edit(\App\User $user){
@@ -26,12 +35,18 @@ class ProfilesController extends Controller
 
     public function update(\App\User $user){
         $this->authorize('update', $user->profile);
+
         $data = request()->validate([
             'title' => 'required',
             'description' => 'required',
             'url' => 'required',
             'profileImg' => '',
+            'protected' => '',
         ]);
+
+        if(!key_exists('protected',$data)){
+            $data['protected'] = 0;
+        }
 
         $imagePath = null;
         
@@ -43,6 +58,6 @@ class ProfilesController extends Controller
         
         auth()->user()->profile->update(array_merge($data,['profileImg' => $imagePath]));
 
-        return redirect('/profile/' . auth()->user()->id);
+        return redirect('/' . auth()->user()->id);
     }
 }

@@ -42,6 +42,7 @@ class User extends Authenticatable
         static::created(function($user){
             $user->profile()->create([
                 'title' => $user->name,
+                'protected' => false
             ]);
         });
     }

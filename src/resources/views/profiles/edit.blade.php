@@ -55,11 +55,22 @@
                 @endif
         </div>
 
-        <div class="row">
-            <label for="profileImg" class="col-md-4 col-form-label">Profile image</label>
-            <input type="file" class="form-control-file" id="profileImg" name="profileImg">
+        <div class="row py-3">
+            <div class="custom-file">
+                <label for="profileImg" class=" custom-file-label">Profile image</label>
+            <input type="file" class="custom-file-input" id="profileImg" name="profileImg">
             @if ($errors->has('profileImg'))                
                     <strong> {{ $errors->first('profileImg') }}</strong>
+                @endif
+            </div>
+        </div>
+
+        <div class="row">
+            <label for="protected" class="col-md-4 col-form-label">Private Account </label>
+            <input type="checkbox" class="" id="protected" name="protected" value="1" {{ $user->profile->protected ? 'checked' : ''}}>
+            
+            @if ($errors->has('protected'))                
+                    <strong> {{ $errors->first('protected') }}</strong>
                 @endif
         </div>
 

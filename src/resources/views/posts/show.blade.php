@@ -13,14 +13,14 @@
                         <div class="col-9">
                             <div class="font-weight-bold">
                                 <div class="d-flex">
-                                    <a class="text-dark pr-4" href="/profile/{{$post->user->id}}">{{$post->user->username}}</a>
+                                    <a class="text-dark pr-4" href="/{{$post->user->username}}">{{$post->user->username}}</a>
                                     @can('update', $post->user->profile)
                                     @else
                                     <follow-button user-id="{{$post->user->id}}" follows="{{ $follows }}" ></follow-button>
                                     @endcan
                                 </div>
                             </div>
-                            <div class="text-muted">location</div>
+                            <div class="text-muted">{{$post->location}}</div>
                         </div>
                     </div>
                 <hr>
@@ -30,7 +30,7 @@
                     </div>
                     <div class="col-9">
                         <div class="d-flex align-items-center">
-                            <span class="font-weight-bold mr-1"><a class="text-dark" href="/profile/{{$post->user->id}}">{{$post->user->username}}</a> </span>
+                            <span class="font-weight-bold mr-1"><a class="text-dark" href="/{{$post->user->username}}">{{$post->user->username}}</a> </span>
                             <div> {{$post->caption }} </div>
                         </div>
                         <div class="mt-2 text-muted"> {{$post->created_at->diffForHumans()}} </div>
@@ -43,7 +43,7 @@
                     </div>
                     <div class="col-9">
                         <div class="d-flex align-items-center">
-                            <span class="font-weight-bold mr-1"><a class="text-dark" href="/profile/{{$comment->user->id}}">{{$comment->user->username}}</a> </span>
+                            <span class="font-weight-bold mr-1"><a class="text-dark" href="/{{$comment->user->username}}">{{$comment->user->username}}</a> </span>
                             <div> {{$comment->comment_text }} </div>
                         </div>
                         <div class="mt-2 text-muted"> {{$comment->created_at->diffForHumans()}} </div>

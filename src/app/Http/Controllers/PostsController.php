@@ -3,17 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+
     }
 
     public function index(){
-        $users = auth()->user()->following()->pluck('profiles.user_id');
-        $users[]= auth()->user()->id;
+        $users = Auth::user()->following()->pluck('profiles.user_id');
+        $users[]= Auth::id();
         $posts = \App\Post::whereIn('user_id', $users)->with('user')->latest()->paginate(5);
         return view('posts.index',compact('posts'));
     }
@@ -21,10 +22,12 @@ class PostsController extends Controller
     public function create(){
         return view('posts.create');
     }
+
     public function store(){
         $data = request()->validate([
             'caption' => 'required',
             'image' => ['required', 'image'],
+            'location' => ''
         ]);
 
         $imagePath = request('image')->store('uploads', 'public');
@@ -34,14 +37,21 @@ class PostsController extends Controller
 
         auth()->user()->posts()->create([
             'caption' => $data['caption'],
-            'image' => $imagePath
+            'image' => $imagePath,
+            'location' => $data['location'],
+
         ]);
-        return redirect('/profile/' . auth()->user()->id);
+        return redirect('/' . Auth::user()->username);
     }
     public function show(\App\Post $post){
+        if($post->user->profile->protected){
+            if(!Auth::check() || !Auth::user()->following->contains($post->user->id)){
+                return redirect('/'. $post->user->username);
+            }
+        }
         $ago = $post['created_at']->diffForHumans();
-        $likes = (auth()->user()) ? auth()->user()->liking->contains($post->id) : false;
-        $follows = (auth()->user()) ? auth()->user()->following->contains($post->user->id) : false;
+        $likes = (Auth::check()) ? Auth::user()->liking->contains($post->id) : false;
+        $follows = (Auth::check()) ? Auth::user()->following->contains($post->user->id) : false;
         $comments = \App\Comment::get()->where('post_id',$post->id);
         return view('posts.show', ['post' => $post, 'likes' => $likes, 'follows' => $follows, 'ago' => $ago, 'comments' => $comments]);
     }
