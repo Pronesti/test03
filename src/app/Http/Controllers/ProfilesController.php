@@ -38,8 +38,8 @@ class ProfilesController extends Controller
 
         $data = request()->validate([
             'title' => 'required',
-            'description' => 'required',
-            'url' => 'required',
+            'description' => '',
+            'url' => '',
             'profileImg' => '',
             'protected' => '',
         ]);
@@ -54,10 +54,12 @@ class ProfilesController extends Controller
             $imagePath = request('profileImg')->store('profile', 'public');
             $image = \Intervention\Image\Facades\Image::make(public_path("storage/{$imagePath}"))->fit(1000,1000);
             $image->save();
+            Auth::user()->profile->update(array_merge($data,['profileImg' => $imagePath]));
+        }else{
+            Auth::user()->profile->update($data);
         }
         
-        auth()->user()->profile->update(array_merge($data,['profileImg' => $imagePath]));
 
-        return redirect('/' . auth()->user()->id);
+        return redirect('/' . Auth::user()->username);
     }
 }

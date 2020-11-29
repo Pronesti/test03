@@ -1,6 +1,6 @@
 <template>
     <div class="">
-        <img v-bind:src="buttonImg" style="max-width: 1.5rem;" @click="followUser"/>
+        <img v-bind:src="buttonImg" style="max-width: 1.5rem;" @click="likePost"/>
     </div>
 </template>
 
@@ -13,17 +13,15 @@
             }
         },
         methods: {
-            followUser(){
-                axios.post('/like/' + this.postId)
+            likePost(){
+                axios.post('/like/p/' + this.postId)
                     .then(response => {
-                        console.log(response.data)
-                        if(response.data == 'NotLogged'){
-                                window.location = '/login'
-                            }
                         this.status = !this.status
                         })
-                        .catch(errors => {
-                            console.log(errors);
+                        .catch(error => {
+                            if(error.response.status == 401){
+                                window.location = '/users/login'
+                            }
                         });
             }
         },

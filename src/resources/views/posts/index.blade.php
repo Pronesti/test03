@@ -37,11 +37,13 @@
                             <div> {{$post->caption }} </div>
                         </div>
                         @foreach ($post->comments as $comment)
-                            <div class="d-flex align-items-center">
+                            <div class="d-flex bd-highlight">
                                 <span class="font-weight-bold mr-1"><a class="text-dark" href="/{{$comment->user->username}}">{{$comment->user->username}}</a> </span>
                                 <div> {{$comment->comment_text }} </div>
+                                <div class="ml-auto"><like-comment comment-id="{{$comment->id}}" likes="{{$comment->likes->contains(Auth::id())}}"></like-comment></div>
                             </div>
                         @endforeach
+
                     <div class="mt-2 text-muted"><a class="text-muted" href="/p/{{$post->id}}"> {{$post->created_at->diffForHumans()}} </a></div>
                     </div>
                 </div>

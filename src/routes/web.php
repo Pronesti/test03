@@ -20,8 +20,9 @@ Route::get('/', 'PostsController@index')->name('post.index')->middleware('auth')
 Route::post('/follow/{user}', 'FollowsController@store')->name('follow.store')->middleware('auth');
 Route::post('/comment/{post}', 'CommentsController@store')->name('comment.store')->middleware('auth');
 
-Route::post('/like/{post}', 'LikesController@store')->name('like.store')->middleware('auth');
-Route::get('/like/all', 'LikesController@index')->name('like.index')->middleware('auth');
+Route::post('/like/c/{comment}', 'CommentLikesController@store')->name('Postlike.store')->middleware('auth');
+Route::post('/like/p/{post}', 'PostLikesController@store')->name('Postlike.store')->middleware('auth');
+Route::get('/like/p/all', 'PostLikesController@index')->name('Postlike.index')->middleware('auth');
 
 Route::get('/profile/{user}/edit', 'ProfilesController@edit')->name('profile.edit')->middleware('auth');
 Route::patch('/profile/{user}/update', 'ProfilesController@update')->name('profile.update')->middleware('auth');

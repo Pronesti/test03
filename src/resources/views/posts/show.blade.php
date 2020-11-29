@@ -33,31 +33,34 @@
                             <span class="font-weight-bold mr-1"><a class="text-dark" href="/{{$post->user->username}}">{{$post->user->username}}</a> </span>
                             <div> {{$post->caption }} </div>
                         </div>
-                        <div class="mt-2 text-muted"> {{$post->created_at->diffForHumans()}} </div>
+                        <div class="mt-2 text-muted"> {{$post->created_at->diffForHumans(null,true)}} </div>
                     </div>
                 </div>
+
                 @foreach ($comments as $comment)
-                <div class="row">
+                <div class="row pt-3">
                     <div class="col-3">
                         <img class="w-100 rounded-circle" style="max-width: 3rem;" src="{{$comment->user->profile->profileImage()}}" alt="" />
                     </div>
-                    <div class="col-9">
-                        <div class="d-flex align-items-center">
+                    <div class="col-7">
+                        <div class="d-flex">
                             <span class="font-weight-bold mr-1"><a class="text-dark" href="/{{$comment->user->username}}">{{$comment->user->username}}</a> </span>
                             <div> {{$comment->comment_text }} </div>
                         </div>
-                        <div class="mt-2 text-muted"> {{$comment->created_at->diffForHumans()}} </div>
+                            <div class="mt-2 text-muted"> {{$comment->created_at->diffForHumans(null,true)}} - {{$comment->likes->count()}} Me gusta  </div>
                     </div>
+                    <div class="col-1"><like-comment comment-id="{{$comment->id}}" likes="{{$comment->likes->contains(Auth::id())}}"></like-comment></div>
                 </div>
                     @endforeach
+
                 <hr>
-                <div class="row d-block">
+                <div class="row d-block pl-3">
                     <like-button post-id="{{$post->id}}" likes="{{ $likes }}"></like-button>
                     <strong>{{$post->likes()->count()}} Me gusta</strong>
                     <div class="mt-2 text-muted"> {{$ago}} </div>
                 </div>
                 <hr>
-                <div class="row d-flex">
+                <div class="row d-flex pl-3">
                     <form action="/comment/{{$post->id}}" enctype="multipart/form-data" method="POST">
                         @csrf
                         <textarea

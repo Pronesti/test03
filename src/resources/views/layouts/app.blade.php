@@ -42,16 +42,28 @@
                                 </li>
                             @endif
                         @else
+                        <li class="nav-item dropdown">
+                            <a id="notificationDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <img class="w-100 rounded-circle mr-3" src="/img/heart-off.svg" alt="notifications" />
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="notificationDropdown">
+                                <div class="dropdown-item">
+                                    test
+                                </div>
+                            </div>
+                        </li>
+                            
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->username }} <span class="caret"></span>
+                                    <img class="w-100 rounded-circle" style="max-width: 2rem;" src={{ Auth::user()->profile->profileImage() }} alt={{ Auth::user()->username }} /> <span class="caret"></span>
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="/{{ Auth::user()->username }}">
                                         Profile
                                     </a>
-                                    <a class="dropdown-item" href="/like/all">
+                                    <a class="dropdown-item" href="/like/p/all">
                                         Likes
                                     </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"

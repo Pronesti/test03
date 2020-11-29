@@ -1,25 +1,24 @@
 <template>
     <div class="">
-        <button class="btn btn-primary" @click="followUser" v-text="buttonText"></button>
+        <img v-bind:src="buttonImg" width="18" alt="LikeComment" @click="likeComment"/>
     </div>
 </template>
 
 <script>
     export default {
-        props: ['userId', 'follows'],
+        props: ['commentId', 'likes'],
         data: function(){
             return {
-                status: this.follows,
+                status: this.likes,
             }
         },
         methods: {
-            followUser(){
-                axios.post('/follow/' + this.userId)
+            likeComment(){
+                axios.post('/like/c/' + this.commentId)
                     .then(response => {
                         this.status = !this.status
                         })
-                        .catch(errors => {
-                            console.log(errors);
+                        .catch(error => {
                             if(error.response.status == 401){
                                 window.location = '/users/login'
                             }
@@ -27,8 +26,8 @@
             }
         },
         computed: {
-            buttonText(){
-                return (this.status) ? 'Unfollow' : 'Follow';
+            buttonImg(){
+                return (this.status) ? '/img/heart-on.svg' : '/img/heart-off.svg';
             }
         }
     }

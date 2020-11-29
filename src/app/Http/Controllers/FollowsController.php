@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FollowsController extends Controller
 {
     public function store(\App\User $user){
-        return (auth()->user()) ? auth()->user()->following()->toggle($user->profile) : 'NotLogged';
+        return Auth::user()->following()->toggle($user->profile);
     }
 }
