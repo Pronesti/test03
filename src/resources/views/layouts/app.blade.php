@@ -58,7 +58,7 @@
                                 </a>
                             </div>
                             <div class="col-2">
-                                <img class="w-100" src="/storage/{{$post->image}}" />
+                                <img class="w-100" src="/storage/" />
                             </div>
                             </div>
                     </div>
@@ -132,7 +132,7 @@
                                 </a>
                             </div>
                             <div class="col-2">
-                                <img class="w-100" src="/storage/{{$post->image}}" />
+                                <img class="w-100" src="/storage/" />
                             </div>
                             </div>
                     </div>
