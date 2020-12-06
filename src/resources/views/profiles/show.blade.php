@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="container">
     <div class="row">
         <div class="mx-auto">
@@ -63,7 +64,7 @@
                 </div>
                 <div class="col-2">
                     @if($following->user->id == Auth::id())
-                    @else
+                    @elseif(Auth::check())
                     <follow-button user-id={{$following->user->id}} follows={{Auth::user()->following->contains($following)}}></follow-button>
                     @endif
                 </div>
@@ -97,7 +98,7 @@
                     </div>
                     <div class="col-2">
                         @if($follower->id == Auth::id())
-                        @else
+                        @elseif(Auth::check())
                         <follow-button user-id={{$follower->id}} follows={{Auth::user()->following->contains($follower->profile)}}></follow-button>
                         @endif
                     </div>
