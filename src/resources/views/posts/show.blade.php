@@ -56,7 +56,7 @@
                 <hr>
                 <div class="row d-block pl-3">
                     <like-button post-id="{{$post->id}}" likes="{{ $likes }}"></like-button>
-                    <strong>{{$post->likes()->count()}} Me gusta</strong>
+                    <a data-toggle="modal" data-target="#exampleModal"><strong>{{$post->likes()->count()}} Me gusta</strong></a>
                     <div class="mt-2 text-muted"> {{$ago}} </div>
                 </div>
                 <hr>
@@ -75,5 +75,37 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title ml-auto" id="exampleModalLabel">Me gusta</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="font-size:  2rem">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              @foreach ($post->likes as $like)
+            <div class="container d-flex  mx-0 px-0">
+            <div class="col-2 px-0">
+                <a class="text-decoration-none text-reset" href="/{{$like->username}}">
+                    <img class="rounded-circle mr-2" src="{{$like->profile->profileImage()}}" style="width: 3rem" /></div>
+                </a>
+            <div class="col-8 ml-n4">
+                <a class="text-decoration-none text-reset" href="/{{$like->username}}">
+                    <strong>{{$like->username}}</strong>
+                    <div class="text-muted">{{$like->name}}</div>
+                </a>
+            </div>
+            <div class="col-2">
+                {{var_dump($post->user->following)}}
+                <a class="btn btn-primary" href="">Seguir</a>
+            </div>
+            </div>
+            @endforeach
+            </div>
+          </div>
+        </div>
+      </div>
 </div>
 @endsection
