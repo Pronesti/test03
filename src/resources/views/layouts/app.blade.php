@@ -25,7 +25,7 @@
             <a class="navbar-brand instaFont ml-5 py-0" href="{{ url('/') }}">
                 Instagram
             </a>
-              <ul class="nav navbar-nav ml-auto" style="margin-right: 10rem">
+              <ul class="nav navbar-nav ml-auto" style="margin-right: 5rem">
                 @guest
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -40,9 +40,27 @@
                 <a class="nav-link dropdown-toggle py-0" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img class="w-100 mr-3 py-1" src="/img/heart-off.svg" alt="notifications" />
                 </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="right: 0; left: auto;">
                     <div class="dropdown-item">
-                        test
+                        @php
+                            $user = \app\User::find(2);
+                            $post = \app\Post::find(1);
+                        @endphp
+                        <div class="container d-flex  mx-0 px-0 pb-2" style="width: 25rem;">
+                            <div class="col-2 px-0">
+                                <a class="text-decoration-none text-reset" href="/{{$user->username}}">
+                                    <img class="rounded-circle mr-2" src="{{$user->profile->profileImage()}}" style="width: 3rem" /></div>
+                                </a>
+                            <div class="col-8 ml-n4">
+                                <a class="text-decoration-none text-reset" href="/{{$user->username}}">
+                                    <strong>{{$user->username}}</strong> te mencionó en un comentario:<br>
+                                    <span><a href="/diegodieh/">@diegodieh</a> mira esto</span> <span class="text-muted"> 3 d</span>
+                                </a>
+                            </div>
+                            <div class="col-2">
+                                <img class="w-100" src="/storage/{{$post->image}}" />
+                            </div>
+                            </div>
                     </div>
                 </div>
               </li>
@@ -51,7 +69,7 @@
                   <a class="nav-link dropdown-toggle py-0" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img class="w-100 rounded-circle" style="max-width: 2rem;" src={{ Auth::user()->profile->profileImage() }} alt={{ Auth::user()->username }} />
                   </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="right: 0; left: auto;">
                     <a class="dropdown-item" href="/{{ Auth::user()->username }}">
                         Profile
                     </a>
@@ -102,7 +120,21 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <div class="dropdown-item">
-                        test
+                        <div class="container d-flex  mx-0 px-0 pb-2" style="width: 25rem;">
+                            <div class="col-2 px-0">
+                                <a class="text-decoration-none text-reset" href="/{{$user->username}}">
+                                    <img class="rounded-circle mr-2" src="{{$user->profile->profileImage()}}" style="width: 3rem" /></div>
+                                </a>
+                            <div class="col-8 ml-n4">
+                                <a class="text-decoration-none text-reset" href="/{{$user->username}}">
+                                    <strong>{{$user->username}}</strong> te mencionó en un comentario:<br>
+                                    <span><a href="/diegodieh/">@diegodieh</a> mira esto</span> <span class="text-muted"> 3 d</span>
+                                </a>
+                            </div>
+                            <div class="col-2">
+                                <img class="w-100" src="/storage/{{$post->image}}" />
+                            </div>
+                            </div>
                     </div>
                 </div>
               </li>
