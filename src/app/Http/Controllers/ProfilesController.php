@@ -20,11 +20,10 @@ class ProfilesController extends Controller
 
         $willShow = true;
         if($user->profile->protected){
-            if(!$follows && !Auth::check() || !$loggedUser->id == $user->id){
+            if(!Auth::check() || !$follows && !($loggedUser->id == $user->id)){
                     $willShow = false;
             }
         }
-    
         return view('profiles.show', compact('user', 'follows', 'willShow'));
     }
 

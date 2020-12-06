@@ -31,12 +31,15 @@
                 <div class="row">
                     <div class="col-12">
                         <like-button post-id="{{$post->id}}" likes="{{ $post->likes->contains(Auth::user()->id) }}"></like-button>
-                        <strong>{{$post->likes()->count()}} Me gusta</strong>
+                        <a data-toggle="modal" data-target="#likesModalPost{{$post->id}}"><strong>{{$post->likes()->count()}} Me gusta</strong></a>
                         <div class="d-flex align-items-center">
                             <span class="font-weight-bold mr-1"><a class="text-dark" href="/{{$post->user->username}}">{{$post->user->username}}</a> </span>
                             <div> {{$post->caption }} </div>
                         </div>
-                        @foreach ($post->comments as $comment)
+                        @if($post->comments->count() > 2)
+                        <a href="/p/{{$post->id}}" class="text-muted">Ver los {{$post->comments->count()}} comentarios</a>
+                        @endif
+                        @foreach ($post->comments->take(2) as $comment)
                             <div class="d-flex bd-highlight">
                                 <span class="font-weight-bold mr-1"><a class="text-dark" href="/{{$comment->user->username}}">{{$comment->user->username}}</a> </span>
                                 <div> {{$comment->comment_text }} </div>
@@ -51,6 +54,40 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="likesModalPost{{$post->id}}" tabindex="-1" aria-labelledby="likesModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title ml-auto" id="exampleModalLabel">Me gusta</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="font-size:  2rem">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          @foreach ($post->likes as $like)
+        <div class="container d-flex  mx-0 px-0 pb-2">
+        <div class="col-2 px-0">
+            <a class="text-decoration-none text-reset" href="/{{$like->username}}">
+                <img class="rounded-circle mr-2" src="{{$like->profile->profileImage()}}" style="width: 3rem" /></div>
+            </a>
+        <div class="col-8 ml-n4">
+            <a class="text-decoration-none text-reset" href="/{{$like->username}}">
+                <strong>{{$like->username}}</strong>
+                <div class="text-muted">{{$like->name}}</div>
+            </a>
+        </div>
+        <div class="col-2">
+            @if($like->id == Auth::id())
+            @else
+            <follow-button user-id={{$like->id}} follows={{Auth::user()->following->contains($like->profile)}}></follow-button>
+            @endif
+        </div>
+        </div>
+        @endforeach
+        </div>
+      </div>
+    </div>
+  </div>
 @endforeach
 </div>
 <div class="row">
