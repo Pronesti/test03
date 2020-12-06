@@ -3,10 +3,10 @@
 @section('content')
 <div class="container-fluid">
 @foreach($posts as $post)
-<div class="col-md-8 offset-md-2 mb-4">
+<div class="col-lg-8 offset-lg-2 mb-4">
     <div class="row">
-        <div class="col-8 offset-2 pb-2 bg-white border border-bottom-0 rounded-top border-light">
-            <div class="d-flex align-items-center"> 
+        <div class="col-10 offset-1 col-lg-8 offset-lg-2 pb-2 bg-white border border-bottom-0 rounded-top">
+            <div class="d-flex align-items-center pt-2 px-2"> 
                 <div class="pr-3">
                     <img class="w-100 rounded-circle" style="max-width: 2rem;" src="{{ $post->user->profile->profileImage() }}"   alt="" />
                 </div>
@@ -21,12 +21,12 @@
         <hr>
     </div>
     <div class="row">
-        <div class="col-8 offset-2 bg-white border border-bottom-0 border-top-0 border-light">
+        <div class="col-10 offset-1 col-lg-8 offset-lg-2 bg-white border border-bottom-0 border-top-0">
             <img class="w-100" src="/storage/{{$post->image}}" alt="{{$post->caption}}">
         </div>
     </div>
     <div class="row">   
-        <div class="col-8 offset-2 bg-white pt-2 border border-top-0 rounded-bottom border-light">
+        <div class="col-10 offset-1 col-lg-8 offset-lg-2 bg-white pt-2 border border-top-0 rounded-bottom">
             <div>
                 <div class="row">
                     <div class="col-12">
@@ -57,7 +57,7 @@
                             name="comment_text" 
                             type='text'
                             placeholder="Agrega un comentario..."
-                            style="resize: none;border:none;height:3rem;">
+                            style="resize: none;border:none;height:3rem;box-shadow: none !important;">
                         </textarea>
                         <div class="input-group-append">
                         <button class="btn btn-sm text-primary font-weight-bolder" style="float: left;" type="submit">Publicar</button>

@@ -4,20 +4,22 @@
 <div class="container">
     <div class="row">
         <div class="mx-auto">
-        <img class="rounded-circle p-5 w-100" 
+        <img class="rounded-circle p-2 p-md-5 w-100" 
              src="{{ $user->profile->profileImage() }}"
              style="max-width: 15rem"      
         />
         </div>
-        <div class="pt-5 mx-auto">
-        <div class="d-flex mb-4">
-            <h3 class="pr-4">{{ $user->username }}</h3>
+        <div class="pt-1 pt-md-5 mx-auto">
+        <div class="d-block d-md-flex mb-4">
+            <h3 class="pr-4 text-md-left text-center">{{ $user->username }}</h3>
+            <div class="text-md-left text-center">
             @can('update', $user->profile)
             <a href="/profile/{{$user->id}}/edit" class="btn btn-outline-secondary text-nowrap editProfileButton mr-4">Editar perfil</a>
             <a href="/p/create" class="btn btn-outline-secondary text-nowrap editProfileButton mr-4">Add new Post</a>
             @else
         <follow-button user-id="{{$user->id}}" follows="{{ $follows }}" ></follow-button>
             @endcan
+            </div>
         </div>
         <div class="d-flex justify-content-around">
             <div class="pr-4"><strong>{{$user->posts->count()}}</strong> publicaciones</div>
@@ -32,7 +34,7 @@
     @if ($willShow)
         <div class="row p-4">
             @foreach ($user->posts as $post)
-                <div class="col-4 pb-4">
+                <div class="col-4 p-1 p-md-2 p-lg-3">
                 <a href="/p/{{$post->id}}"><img class="w-100" src="/storage/{{ $post->image }}" /></a>
                 </div>
             @endforeach 

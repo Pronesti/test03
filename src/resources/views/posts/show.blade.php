@@ -3,8 +3,12 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-12 col-md-8 px-0"><img class="w-100" src="/storage/{{$post->image}}" alt="{{$post->caption}}"></div>
-        <div class="col-12 col-md-4 bg-white p-3">
+        <div class="col-12 col-lg-8 px-0 border border-right-0 rounded-top">
+            <div class="bg-dark h-100 d-flex align-items-center">
+                <img class="w-100" src="/storage/{{$post->image}}" alt="{{$post->caption}}">
+            </div>
+        </div>
+        <div class="col-12 col-lg-4 bg-white p-3 border border-left-0 rounded-top">
             <div class="container ">
                 <div class="row d-flex">
                         <div class="col-3">
@@ -36,7 +40,7 @@
                         <div class="mt-2 text-muted"> {{$post->created_at->diffForHumans(null,true)}} </div>
                     </div>
                 </div>
-                <div class="" style="overflow-y: auto;overflow-x:hidden; height: 21rem;">
+                <div class="" style="overflow-y: auto;overflow-x:hidden; height: 23rem;">
                 @foreach ($comments as $comment)
                 <div class="row pt-3">
                     <div class="col-3">
@@ -104,7 +108,7 @@
                             name="comment_text" 
                             type='text'
                             placeholder="Agrega un comentario..."
-                            style="resize: none;border:none;height:3rem;">
+                            style="resize: none;border:none;height:3rem;box-shadow: none !important;">
                         </textarea>
                         <div class="input-group-append">
                         <button class="btn text-primary font-weight-bolder" style="float: left;" type="submit">Publicar</button>

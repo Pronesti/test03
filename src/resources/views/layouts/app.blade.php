@@ -21,15 +21,15 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-sm navbar-light bg-white d-none d-sm-flex">
-            <a class="navbar-brand instaFont ml-5" href="{{ url('/') }}">
+        <nav class="navbar navbar-expand-sm navbar-light bg-white d-none d-sm-flex border border-top-0 py-0">
+            <a class="navbar-brand instaFont ml-5 py-0" href="{{ url('/') }}">
                 Instagram
             </a>
-              <ul class="nav navbar-nav ml-auto">
+              <ul class="nav navbar-nav ml-auto" style="margin-right: 10rem">
                 @guest
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                    </li>
                 @if (Route::has('register'))
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
@@ -37,8 +37,8 @@
                 @endif
             @else
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img class="w-100 rounded-circle mr-3" style="max-width: 2rem" src="/img/heart-off.svg" alt="notifications" />
+                <a class="nav-link dropdown-toggle py-0" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img class="w-100 mr-3 py-1" src="/img/heart-off.svg" alt="notifications" />
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <div class="dropdown-item">
@@ -48,7 +48,7 @@
               </li>
 
                 <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <a class="nav-link dropdown-toggle py-0" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img class="w-100 rounded-circle" style="max-width: 2rem;" src={{ Auth::user()->profile->profileImage() }} alt={{ Auth::user()->username }} />
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -75,16 +75,16 @@
 
           <!-- SMALLER SCREENS -->
 
-          <nav class="navbar navbar-light bg-white d-sm-none px-1 mt-n3" style="height: 3.8rem">
+          <nav class="navbar navbar-light bg-white d-sm-none px-1 mt-n3  border border-top-0" style="height: 3.8rem">
             <a class="navbar-brand instaFont mx-auto" href="{{ url('/') }}">
                 Instagram
             </a>
           </nav>
 
-          <nav class="fixed-bottom navbar-light bg-white d-sm-none">
+          <nav class="fixed-bottom navbar-light bg-white d-sm-none border border-bottom-0">
             <ul class="nav navbar-nav mx-auto">
                 @guest
-                <div class="btn-group">
+                <div class="btn-group mx-auto">
                 <li class="nav-item mr-3">
                     <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                 </li>
