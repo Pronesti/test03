@@ -39,7 +39,7 @@
                         @if($post->comments->count() > 2)
                         <a href="/p/{{$post->id}}" class="text-muted">Ver los {{$post->comments->count()}} comentarios</a>
                         @endif
-                        @foreach ($post->comments->take(2) as $comment)
+                        @foreach ($post->comments->take(-2) as $comment)
                             <div class="d-flex bd-highlight">
                                 <span class="font-weight-bold mr-1"><a class="text-dark" href="/{{$comment->user->username}}">{{$comment->user->username}}</a> </span>
                                 <div> {{$comment->comment_text }} </div>
