@@ -5,7 +5,7 @@
 @foreach($posts as $post)
 <div class="col-md-8 offset-md-2 mb-4">
     <div class="row">
-        <div class="col-8 offset-2 pb-2 bg-white">
+        <div class="col-8 offset-2 pb-2 bg-white border border-bottom-0 rounded-top border-light">
             <div class="d-flex align-items-center"> 
                 <div class="pr-3">
                     <img class="w-100 rounded-circle" style="max-width: 2rem;" src="{{ $post->user->profile->profileImage() }}"   alt="" />
@@ -21,12 +21,12 @@
         <hr>
     </div>
     <div class="row">
-        <div class="col-8 offset-2 bg-white">
+        <div class="col-8 offset-2 bg-white border border-bottom-0 border-top-0 border-light">
             <img class="w-100" src="/storage/{{$post->image}}" alt="{{$post->caption}}">
         </div>
     </div>
     <div class="row">   
-        <div class="col-8 offset-2 bg-white pt-2">
+        <div class="col-8 offset-2 bg-white pt-2 border border-top-0 rounded-bottom border-light">
             <div>
                 <div class="row">
                     <div class="col-12">
@@ -48,6 +48,22 @@
                         @endforeach
 
                     <div class="mt-2 text-muted"><a class="text-muted" href="/p/{{$post->id}}"> {{$post->created_at->diffForHumans()}} </a></div>
+                    <hr>
+                    <form action="/comment/{{$post->id}}" enctype="multipart/form-data" method="POST">
+                        @csrf
+                        <div class="input-group">
+                        <textarea
+                            class="form-control"
+                            name="comment_text" 
+                            type='text'
+                            placeholder="Agrega un comentario..."
+                            style="resize: none;border:none;height:3rem;">
+                        </textarea>
+                        <div class="input-group-append">
+                        <button class="btn btn-sm text-primary font-weight-bolder" style="float: left;" type="submit">Publicar</button>
+                        </div>
+                        </div>
+                    </form>
                     </div>
                 </div>
             </div>

@@ -21,67 +21,118 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-sm navbar-light bg-white shadow-sm appBar" style="z-index:100000;">
-            <div class="container">
-                <a class="navbar-brand instaFont" href="{{ url('/') }}">
-                    Instagram
+        <nav class="navbar navbar-expand-sm navbar-light bg-white d-none d-sm-flex">
+            <a class="navbar-brand instaFont ml-5" href="{{ url('/') }}">
+                Instagram
+            </a>
+              <ul class="nav navbar-nav ml-auto">
+                @guest
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                </li>
+                @if (Route::has('register'))
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                    </li>
+                @endif
+            @else
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img class="w-100 rounded-circle mr-3" style="max-width: 2rem" src="/img/heart-off.svg" alt="notifications" />
                 </a>
-
-                <div class="" id="navbarSupportedContent">
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                        <li class="nav-item dropdown">
-                            <a id="notificationDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                <img class="w-100 rounded-circle mr-3" src="/img/heart-off.svg" alt="notifications" />
-                            </a>
-
-                            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="notificationDropdown">
-                                <div class="dropdown-item">
-                                    test
-                                </div>
-                            </div>
-                        </li>
-                            
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    <img class="w-100 rounded-circle" style="max-width: 2rem;" src={{ Auth::user()->profile->profileImage() }} alt={{ Auth::user()->username }} /> <span class="caret"></span>
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="/{{ Auth::user()->username }}">
-                                        Profile
-                                    </a>
-                                    <a class="dropdown-item" href="/like/p/all">
-                                        Likes
-                                    </a>
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <div class="dropdown-item">
+                        test
+                    </div>
                 </div>
+              </li>
+
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img class="w-100 rounded-circle" style="max-width: 2rem;" src={{ Auth::user()->profile->profileImage() }} alt={{ Auth::user()->username }} />
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="/{{ Auth::user()->username }}">
+                        Profile
+                    </a>
+                    <a class="dropdown-item" href="/like/p/all">
+                        Likes
+                    </a>
+                    <a class="dropdown-item" href="{{ route('logout') }}"
+                       onclick="event.preventDefault();
+                                     document.getElementById('logout-form').submit();">
+                        {{ __('Logout') }}
+                    </a>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                  </div>
+                </li>
+            @endguest
+              </ul>
+          </nav>
+
+          <!-- SMALLER SCREENS -->
+
+          <nav class="navbar navbar-light bg-white d-sm-none px-1 mt-n3" style="height: 3.8rem">
+            <a class="navbar-brand instaFont mx-auto" href="{{ url('/') }}">
+                Instagram
+            </a>
+          </nav>
+
+          <nav class="fixed-bottom navbar-light bg-white d-sm-none">
+            <ul class="nav navbar-nav mx-auto">
+                @guest
+                <div class="btn-group">
+                <li class="nav-item mr-3">
+                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                </li>
+                @if (Route::has('register'))
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                    </li>
+                @endif
+                </div>
+            @else
+            <div class="btn-group">
+            <li class="nav-item dropup mr-auto pl-3">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img class="" style="width: 1.5rem" src="/img/heart-off.svg" alt="notifications" />
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <div class="dropdown-item">
+                        test
+                    </div>
+                </div>
+              </li>
+
+                <li class="nav-item dropup ml-auto pr-3">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img class="rounded-circle" style="max-width: 2rem;" src={{ Auth::user()->profile->profileImage() }} alt={{ Auth::user()->username }} />
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="/{{ Auth::user()->username }}">
+                        Profile
+                    </a>
+                    <a class="dropdown-item" href="/like/p/all">
+                        Likes
+                    </a>
+                    <a class="dropdown-item" href="{{ route('logout') }}"
+                       onclick="event.preventDefault();
+                                     document.getElementById('logout-form').submit();">
+                        {{ __('Logout') }}
+                    </a>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                  </div>
+                </li>
             </div>
-        </nav>
+            @endguest
+              </ul>
+          </nav>
 
         <main class="py-4">
             @yield('content')

@@ -46,7 +46,7 @@ class PostsController extends Controller
     }
     public function show(\App\Post $post){
         if($post->user->profile->protected){
-            if(!Auth::check() || !Auth::user()->following->contains($post->user->id)){
+            if(!Auth::check() || !(Auth::user()->following->contains($post->user->id)) && Auth::id() !== $post->user->id){
                 return redirect('/'. $post->user->username);
             }
         }

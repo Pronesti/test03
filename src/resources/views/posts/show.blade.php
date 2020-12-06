@@ -36,7 +36,7 @@
                         <div class="mt-2 text-muted"> {{$post->created_at->diffForHumans(null,true)}} </div>
                     </div>
                 </div>
-
+                <div class="" style="overflow-y: auto;overflow-x:hidden; height: 21rem;">
                 @foreach ($comments as $comment)
                 <div class="row pt-3">
                     <div class="col-3">
@@ -86,6 +86,7 @@
                     </div>
                   </div>
                     @endforeach
+                </div>
 
                 <hr>
                 <div class="row d-block pl-3">
@@ -97,13 +98,18 @@
                 <div class="row d-flex pl-3">
                     <form action="/comment/{{$post->id}}" enctype="multipart/form-data" method="POST">
                         @csrf
+                        <div class="input-group mb-3">
                         <textarea
-                            class="form-control"
+                            class="form-control pt-3"
                             name="comment_text" 
                             type='text'
-                            style="resize: none">
+                            placeholder="Agrega un comentario..."
+                            style="resize: none;border:none;height:3rem;">
                         </textarea>
-                        <button class="btn btn-primary"type="submit">Publicar</button>
+                        <div class="input-group-append">
+                        <button class="btn text-primary font-weight-bolder" style="float: left;" type="submit">Publicar</button>
+                        </div>
+                        </div>
                     </form>
                 </div>
             </div>
