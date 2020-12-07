@@ -18,7 +18,11 @@
             <a href="/profile/{{$user->id}}/edit" class="btn btn-outline-secondary text-nowrap editProfileButton mr-4">Editar perfil</a>
             <a href="/p/create" class="btn btn-outline-secondary text-nowrap editProfileButton mr-4">Add new Post</a>
             @else
-        <follow-button user-id="{{$user->id}}" follows="{{ $follows }}" ></follow-button>
+            @if($waiting)
+              <button class="btn btn-outline-secondary">Pendiente</button>
+            @else
+              <follow-button user-id="{{$user->id}}" follows="{{ $follows }}" ></follow-button>
+            @endif
             @endcan
             </div>
         </div>

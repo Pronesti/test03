@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ProfilesController extends Controller
 {
@@ -14,8 +15,13 @@ class ProfilesController extends Controller
         $loggedUser = Auth::user();
 
         $follows = false;
+        $waiting = false;
         if(Auth::check()){
             $follows = $loggedUser->following->contains($user->id);
+            if($follows){
+                $select = DB::select('select * from profile_user where user_id = :userid and profile_id = :profileid',['userid'=> Auth::id(), 'profileid' => $user->profile->id]);
+                $waiting = ($select[0]->accepted == 0);
+            }
         }
 
         $willShow = true;
@@ -24,7 +30,7 @@ class ProfilesController extends Controller
                     $willShow = false;
             }
         }
-        return view('profiles.show', compact('user', 'follows', 'willShow'));
+        return view('profiles.show', compact('user', 'follows', 'willShow', 'waiting'));
     }
 
     public function edit(\App\User $user){

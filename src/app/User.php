@@ -56,7 +56,7 @@ class User extends Authenticatable
     }
 
     public function following(){
-        return $this->belongsToMany(Profile::class)->withTimestamps();
+        return $this->belongsToMany(Profile::class)->withTimestamps()->withPivot('accepted');
     }
 
     public function likingPosts(){

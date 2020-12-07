@@ -17,7 +17,11 @@ Route::get('/', 'PostsController@index')->name('post.index')->middleware('auth')
 
 
 
+Route::post('/follow/confirm/{profile}', 'FollowsController@update')->name('follow.update')->middleware('auth');
+Route::post('/follow/delete/{profile}', 'FollowsController@destroy')->name('follow.destroy')->middleware('auth');
+
 Route::post('/follow/{user}', 'FollowsController@store')->name('follow.store')->middleware('auth');
+
 Route::post('/comment/{post}', 'CommentsController@store')->name('comment.store')->middleware('auth');
 
 Route::post('/like/c/{comment}', 'CommentLikesController@store')->name('Postlike.store')->middleware('auth');
