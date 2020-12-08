@@ -16,6 +16,8 @@
 Route::get('/', 'PostsController@index')->name('post.index')->middleware('auth');
 
 
+Route::get('/bookmark/all', 'SaveController@index')->name('save.index')->middleware('auth');
+Route::post('/bookmark/{post}', 'SaveController@store')->name('save.store')->middleware('auth');
 
 Route::post('/follow/confirm/{profile}', 'FollowsController@update')->name('follow.update')->middleware('auth');
 Route::post('/follow/delete/{profile}', 'FollowsController@destroy')->name('follow.destroy')->middleware('auth');

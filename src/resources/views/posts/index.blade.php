@@ -8,7 +8,7 @@
         <div class="col-10 offset-1 col-lg-8 offset-lg-2 pb-2 bg-white border border-bottom-0 rounded-top">
             <div class="d-flex align-items-center pt-2 px-2"> 
                 <div class="pr-3">
-                    <img class="w-100 rounded-circle" style="max-width: 2rem;" src="{{ $post->user->profile->profileImage() }}"   alt="" />
+                    <img class="w-100 rounded-circle boder border-secondary" style="max-width: 2rem;" src="{{ $post->user->profile->profileImage() }}"   alt="" />
                 </div>
                 <div>
                     <div class="font-weight-bold">
@@ -16,9 +16,9 @@
                     </div>
                     <div class="text-muted">{{$post->location}}</div>
                 </div>
+                <img src="/img/options.svg" style="max-width: 1.5rem;" class="ml-auto" />
             </div>
         </div>
-        <hr>
     </div>
     <div class="row">
         <div class="col-10 offset-1 col-lg-8 offset-lg-2 bg-white border border-bottom-0 border-top-0">
@@ -30,18 +30,26 @@
             <div>
                 <div class="row">
                     <div class="col-12">
-                        <like-button post-id="{{$post->id}}" likes="{{ $post->likes->contains(Auth::user()->id) }}"></like-button>
-                        <a data-toggle="modal" data-target="#likesModalPost{{$post->id}}"><strong>{{$post->likes()->count()}} Me gusta</strong></a>
+                        
+                        <div class="d-flex">
+                            <div class="mr-auto w-100 d-flex">
+                                <div class="mr-3"><like-button post-id="{{$post->id}}" likes="{{ $post->likes->contains(Auth::user()->id) }}"></like-button></div>
+                                <img src="/img/comment.svg" style="max-width: 1.5rem;" class="mr-3" />
+                                <img src="/img/message.svg" style="max-width: 1.5rem;" class="mr-3" />
+                            </div>
+                            <div class="ml-auto"><bookmark-button post-id="{{$post->id}}" saved="{{ \App\Save::where('user_id', Auth::id())->where('post_id', $post->id)->count() > 0 }}"></bookmark-button></div>
+                        </div>
+                        <a data-toggle="modal" data-target="#likesModalPost{{$post->id}}"><strong>{{$post->likes()->count()}} likes</strong></a>
                         <div class="d-flex align-items-center">
-                            <span class="font-weight-bold mr-1"><a class="text-dark" href="/{{$post->user->username}}">{{$post->user->username}}</a> </span>
-                            <div> {{$post->caption }} </div>
+                            <span><span class="font-weight-bolder mr-1"><a class="text-dark" href="/{{$post->user->username}}">{{$post->user->username}}</a> </span>
+                             {{$post->caption }} </span>
                         </div>
                         @if($post->comments->count() > 2)
-                        <a href="/p/{{$post->id}}" class="text-muted">Ver los {{$post->comments->count()}} comentarios</a>
+                        <a href="/p/{{$post->id}}" class="text-muted">View all {{$post->comments->count()}} comments</a>
                         @endif
                         @foreach ($post->comments->take(-2) as $comment)
                             <div class="d-flex bd-highlight">
-                                <span class="font-weight-bold mr-1"><a class="text-dark" href="/{{$comment->user->username}}">{{$comment->user->username}}</a> </span>
+                                <span class="font-weight-bolder mr-1"><a class="text-dark" href="/{{$comment->user->username}}">{{$comment->user->username}}</a> </span>
                                 <div> {{$comment->comment_text }} </div>
                                 <div class="ml-auto"><like-comment comment-id="{{$comment->id}}" likes="{{$comment->likes->contains(Auth::id())}}"></like-comment></div>
                             </div>
@@ -56,11 +64,11 @@
                             class="form-control"
                             name="comment_text" 
                             type='text'
-                            placeholder="Agrega un comentario..."
+                            placeholder="Add a comment..."
                             style="resize: none;border:none;height:3rem;box-shadow: none !important;">
                         </textarea>
                         <div class="input-group-append">
-                        <button class="btn btn-sm text-primary font-weight-bolder" style="float: left;" type="submit">Publicar</button>
+                        <button class="btn btn-sm text-primary font-weight-bolder mb-3" style="float: left;" type="submit">Post</button>
                         </div>
                         </div>
                     </form>
@@ -74,7 +82,7 @@
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title ml-auto" id="exampleModalLabel">Me gusta</h5>
+          <h5 class="modal-title ml-auto" id="exampleModalLabel">likes</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="font-size:  2rem">
             <span aria-hidden="true">&times;</span>
           </button>

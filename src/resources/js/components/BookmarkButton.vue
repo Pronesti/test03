@@ -1,20 +1,23 @@
 <template>
-        <img class="w-100" v-bind:src="buttonImg" style="max-width: 1.5rem;" @click="likePost" />
+    <div class="">
+        <img v-bind:src="buttonImg" style="max-width: 1.5rem;" @click="savePost"/>
+    </div>
 </template>
 
 <script>
     export default {
-        props: ['postId', 'likes'],
+        props: ['postId', 'saved'],
         data: function(){
             return {
-                status: this.likes,
+                status: this.saved,
             }
         },
         methods: {
-            likePost(){
-                axios.post('/like/p/' + this.postId)
+            savePost(){
+                axios.post('/bookmark/' + this.postId)
                     .then(response => {
                         this.status = !this.status
+                        console.log(response.data)
                         })
                         .catch(error => {
                             if(error.response.status == 401){
@@ -25,7 +28,7 @@
         },
         computed: {
             buttonImg(){
-                return (this.status) ? '/img/heart-on.svg' : '/img/heart-off.svg';
+                return (this.status) ? '/img/bookmark-on.svg' : '/img/bookmark-off.svg';
             }
         }
     }

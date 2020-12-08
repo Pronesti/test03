@@ -1688,6 +1688,51 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/BookmarkButton.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/BookmarkButton.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['postId', 'saved'],
+  data: function data() {
+    return {
+      status: this.saved
+    };
+  },
+  methods: {
+    savePost: function savePost() {
+      var _this = this;
+
+      axios.post('/bookmark/' + this.postId).then(function (response) {
+        _this.status = !_this.status;
+        console.log(response.data);
+      })["catch"](function (error) {
+        if (error.response.status == 401) {
+          window.location = '/users/login';
+        }
+      });
+    }
+  },
+  computed: {
+    buttonImg: function buttonImg() {
+      return this.status ? '/img/bookmark-on.svg' : '/img/bookmark-off.svg';
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FollowButton.vue?vue&type=script&lang=js&":
 /*!***********************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FollowButton.vue?vue&type=script&lang=js& ***!
@@ -1727,10 +1772,10 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     buttonText: function buttonText() {
-      return this.status ? 'Siguiendo' : 'Seguir';
+      return this.status ? 'Following' : 'Follow';
     },
     buttonClass: function buttonClass() {
-      return this.status ? 'btn btn-outline-secondary' : 'btn btn-primary';
+      return this.status ? 'border border-light rounded p-1' : 'btn btn-primary';
     }
   }
 });
@@ -1746,8 +1791,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
 //
 //
 //
@@ -37422,6 +37465,36 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/BookmarkButton.vue?vue&type=template&id=7d0c9f33&":
+/*!*****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/BookmarkButton.vue?vue&type=template&id=7d0c9f33& ***!
+  \*****************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", {}, [
+    _c("img", {
+      staticStyle: { "max-width": "1.5rem" },
+      attrs: { src: _vm.buttonImg },
+      on: { click: _vm.savePost }
+    })
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FollowButton.vue?vue&type=template&id=426ba0ae&":
 /*!***************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FollowButton.vue?vue&type=template&id=426ba0ae& ***!
@@ -37438,7 +37511,8 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", {}, [
-    _c("button", {
+    _c("div", {
+      staticClass: "w-100",
       class: _vm.buttonClass,
       domProps: { textContent: _vm._s(_vm.buttonText) },
       on: { click: _vm.followUser }
@@ -37467,13 +37541,12 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", {}, [
-    _c("img", {
-      staticStyle: { "max-width": "1.5rem" },
-      attrs: { src: _vm.buttonImg },
-      on: { click: _vm.likePost }
-    })
-  ])
+  return _c("img", {
+    staticClass: "w-100",
+    staticStyle: { "max-width": "1.5rem" },
+    attrs: { src: _vm.buttonImg },
+    on: { click: _vm.likePost }
+  })
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -49700,6 +49773,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 
 Vue.component('follow-button', __webpack_require__(/*! ./components/FollowButton.vue */ "./resources/js/components/FollowButton.vue")["default"]);
 Vue.component('like-button', __webpack_require__(/*! ./components/LikeButton.vue */ "./resources/js/components/LikeButton.vue")["default"]);
+Vue.component('bookmark-button', __webpack_require__(/*! ./components/BookmarkButton.vue */ "./resources/js/components/BookmarkButton.vue")["default"]);
 Vue.component('like-comment', __webpack_require__(/*! ./components/LikeComment.vue */ "./resources/js/components/LikeComment.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -49768,6 +49842,75 @@ if (token) {
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/components/BookmarkButton.vue":
+/*!****************************************************!*\
+  !*** ./resources/js/components/BookmarkButton.vue ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _BookmarkButton_vue_vue_type_template_id_7d0c9f33___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BookmarkButton.vue?vue&type=template&id=7d0c9f33& */ "./resources/js/components/BookmarkButton.vue?vue&type=template&id=7d0c9f33&");
+/* harmony import */ var _BookmarkButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./BookmarkButton.vue?vue&type=script&lang=js& */ "./resources/js/components/BookmarkButton.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _BookmarkButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _BookmarkButton_vue_vue_type_template_id_7d0c9f33___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _BookmarkButton_vue_vue_type_template_id_7d0c9f33___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/BookmarkButton.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/BookmarkButton.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/components/BookmarkButton.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BookmarkButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./BookmarkButton.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/BookmarkButton.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BookmarkButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/BookmarkButton.vue?vue&type=template&id=7d0c9f33&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/BookmarkButton.vue?vue&type=template&id=7d0c9f33& ***!
+  \***********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BookmarkButton_vue_vue_type_template_id_7d0c9f33___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./BookmarkButton.vue?vue&type=template&id=7d0c9f33& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/BookmarkButton.vue?vue&type=template&id=7d0c9f33&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BookmarkButton_vue_vue_type_template_id_7d0c9f33___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BookmarkButton_vue_vue_type_template_id_7d0c9f33___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
 
 /***/ }),
 

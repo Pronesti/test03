@@ -36,9 +36,18 @@
                     </li>
                 @endif
             @else
+            <li class="nav-item">
+               <a href="/"> <img class="w-100 mr-3 py-1" style="max-width: 1.5rem;" src="/img/home.svg" alt="home" /> </a>
+            </li>
+            <li class="nav-item">
+                <a href="/messages"> <img class="w-100 mr-3 py-1" style="max-width: 1.5rem;" src="/img/message.svg" alt="messages" /> </a>
+            </li>
+            <li class="nav-item">
+                <a href="/explore"> <img class="w-100 mr-3 py-1" style="max-width: 1.5rem;" src="/img/compass.svg" alt="explore" /> </a>
+            </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle py-0" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img class="w-100 mr-3 py-1" src="/img/heart-off.svg" alt="notifications" />
+                <a class="nav-link py-0" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img class="w-100 mr-3 py-1" style="max-width: 1.5rem;" src="/img/heart-off.svg" alt="notifications" />
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="right: 0; left: auto;">
                     <div class="dropdown-item">
@@ -76,7 +85,7 @@
               </li>
 
                 <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle py-0" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <a class="nav-link py-0" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img class="w-100 rounded-circle" style="max-width: 2rem;" src={{ Auth::user()->profile->profileImage() }} alt={{ Auth::user()->username }} />
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="right: 0; left: auto;">
@@ -123,10 +132,21 @@
                 @endif
                 </div>
             @else
-            <div class="btn-group">
-            <li class="nav-item dropup mr-auto pl-3">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img class="" style="width: 1.5rem" src="/img/heart-off.svg" alt="notifications" />
+            <div class="btn-group"> 
+            <div class="d-flex mx-auto px-2 pt-2">
+              <li class="nav-item">
+                <a href="/"> <img class="w-100 mx-4 py-1" style="max-width: 1.5rem;" src="/img/home.svg" alt="home" /> </a>
+             </li>
+             <li class="nav-item">
+                 <a href="/messages"> <img class="w-100 mx-4 py-1" style="max-width: 1.5rem;" src="/img/message.svg" alt="messages" /> </a>
+             </li>
+             <li class="nav-item">
+                 <a href="/explore"> <img class="w-100 mx-4 py-1" style="max-width: 1.5rem;" src="/img/compass.svg" alt="explore" /> </a>
+             </li>
+
+             <li class="nav-item dropup">
+                <a class="" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img class="mx-4 py-1" style="width: 1.5rem" src="/img/heart-off.svg" alt="notifications" />
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <div class="dropdown-item">
@@ -134,9 +154,9 @@
                 </div>
               </li>
 
-                <li class="nav-item dropup ml-auto pr-3">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img class="rounded-circle" style="max-width: 2rem;" src={{ Auth::user()->profile->profileImage() }} alt={{ Auth::user()->username }} />
+                <li class="nav-item dropup">
+                  <a class="" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img class="rounded-circle w-100 mx-4 py-1" style="max-width: 1.5rem;" src={{ Auth::user()->profile->profileImage() }} alt={{ Auth::user()->username }} />
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <a class="dropdown-item" href="/{{ Auth::user()->username }}">
@@ -156,6 +176,7 @@
                     </form>
                   </div>
                 </li>
+            </div>
             </div>
             @endguest
               </ul>

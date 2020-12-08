@@ -1,6 +1,6 @@
 <template>
     <div class="">
-        <button :class="buttonClass" @click="followUser" v-text="buttonText"></button>
+        <div class="w-100" :class="buttonClass" @click="followUser" v-text="buttonText"></div>
     </div>
 </template>
 
@@ -28,10 +28,10 @@
         },
         computed: {
             buttonText(){
-                return (this.status) ? 'Siguiendo' : 'Seguir';
+                return (this.status) ? 'Following' : 'Follow';
             },
             buttonClass(){
-                return (this.status) ? 'btn btn-outline-secondary' : 'btn btn-primary';
+                return (this.status) ? 'border border-light rounded p-1' : 'btn btn-primary';
             }
         }
     }

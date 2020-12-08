@@ -15,11 +15,11 @@
             <h3 class="pr-4 text-md-left text-center">{{ $user->username }}</h3>
             <div class="text-md-left text-center">
             @can('update', $user->profile)
-            <a href="/profile/{{$user->id}}/edit" class="btn btn-outline-secondary text-nowrap editProfileButton mr-4">Editar perfil</a>
+            <a href="/profile/{{$user->id}}/edit" class="btn btn-outline-secondary text-nowrap editProfileButton mr-4">Edit profile</a>
             <a href="/p/create" class="btn btn-outline-secondary text-nowrap editProfileButton mr-4">Add new Post</a>
             @else
             @if($waiting)
-              <button class="btn btn-outline-secondary">Pendiente</button>
+              <button class="btn btn-outline-secondary">Pending</button>
             @else
               <follow-button user-id="{{$user->id}}" follows="{{ $follows }}" ></follow-button>
             @endif
@@ -27,9 +27,9 @@
             </div>
         </div>
         <div class="d-flex justify-content-around">
-            <div class="pr-4"><strong>{{$user->posts->count()}}</strong> publicaciones</div>
-            <div class="pr-4"><a data-toggle="modal" data-target="#followersModal"><strong>{{$user->profile->followers->count()}}</strong> seguidores </a></div>
-            <div class="pr-4"><a data-toggle="modal" data-target="#followingModal"><strong>{{$user->following->count()}}</strong> seguidos </a></div>
+            <div class="pr-4"><strong>{{$user->posts->count()}}</strong> posts</div>
+            <div class="pr-4"><a data-toggle="modal" data-target="#followersModal"><strong>{{$user->profile->followers->count()}}</strong> followers </a></div>
+            <div class="pr-4"><a data-toggle="modal" data-target="#followingModal"><strong>{{$user->following->count()}}</strong> following </a></div>
         </div>
             <div class="pt-4 font-weight-bold">{{ $user->profile->title }}</div>
             <div>{{ $user->profile->description }}</div>
@@ -48,7 +48,7 @@
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title ml-auto" id="exampleModalLabel">Seguidos</h5>
+                  <h5 class="modal-title ml-auto" id="exampleModalLabel">Following</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="font-size:  2rem">
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -60,13 +60,13 @@
                     <a class="text-decoration-none text-reset" href="/{{$following->user->username}}">
                         <img class="rounded-circle mr-2" src="{{$following->profileImage()}}" style="width: 3rem" /></div>
                     </a>
-                <div class="col-8 ml-n4">
+                <div class="col-7 ml-n4">
                     <a class="text-decoration-none text-reset" href="/{{$following->user->username}}">
                         <strong>{{$following->user->username}}</strong>
                         <div class="text-muted">{{$following->user->name}}</div>
                     </a>
                 </div>
-                <div class="col-2">
+                <div class="col-3">
                     @if($following->user->id == Auth::id())
                     @elseif(Auth::check())
                     <follow-button user-id={{$following->user->id}} follows={{Auth::user()->following->contains($following)}}></follow-button>
@@ -82,7 +82,7 @@
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title ml-auto" id="exampleModalLabel">Seguidores</h5>
+                  <h5 class="modal-title ml-auto" id="exampleModalLabel">Followers</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="font-size:  2rem">
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -94,13 +94,13 @@
                         <a class="text-decoration-none text-reset" href="/{{$follower->username}}">
                             <img class="rounded-circle mr-2" src="{{$follower->profile->profileImage()}}" style="width: 3rem" /></div>
                         </a>
-                    <div class="col-8 ml-n4">
+                    <div class="col-7 ml-n4">
                         <a class="text-decoration-none text-reset" href="/{{$follower->username}}">
                             <strong>{{$follower->username}}</strong>
                             <div class="text-muted">{{$follower->name}}</div>
                         </a>
                     </div>
-                    <div class="col-2">
+                    <div class="col-3">
                         @if($follower->id == Auth::id())
                         @elseif(Auth::check())
                         <follow-button user-id={{$follower->id}} follows={{Auth::user()->following->contains($follower->profile)}}></follow-button>
