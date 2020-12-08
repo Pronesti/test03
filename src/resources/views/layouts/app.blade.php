@@ -51,60 +51,15 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="right: 0; left: auto;">
                     <div class="dropdown-item">
-                        @php
-                            $requests = DB::select('select * from profile_user where profile_id = :profileid and accepted = 0',['profileid' => Auth::user()->profile->id]);
-                        @endphp
-                        @foreach($requests as $request)
-                            @php
-                                $user = \App\User::find($request->user_id);    
-                            @endphp
-                            <div class="container d-flex  mx-0 px-0 pb-2" style="width: 30rem;">
-                                <div class="col-2 px-0">
-                                    <a class="text-decoration-none text-reset" href="/{{$user->username}}">
-                                        <img class="rounded-circle mr-2" src="{{$user->profile->profileImage()}}" style="width: 3rem" /></div>
-                                    </a>
-                                <div class="col-5 ml-n4">
-                                    <a class="text-decoration-none text-reset" href="/{{$user->username}}">
-                                        <a class="text-dark" href="/{{$user->username}}/"><strong>{{$user->username}}</strong></a> ha solicitado seguirte<br>
-                                    </a>
-                                </div>
-                                <div class="col-5 d-flex">
-                                    <form method="POST" action="/follow/confirm/{{$request->user_id}}" enctype="multipart/form-data">
-                                        @csrf
-                                        <button class="btn btn-primary mr-1" type="submit">Aceptar</button>
-                                    </form>
-                                    <form method="POST" action="/follow/delete/{{$request->user_id}}" enctype="multipart/form-data">
-                                        @csrf
-                                        <button class="btn btn-danger mr-1" type="submit">Cancelar</button>
-                                    </form>
-                                </div>
-                                </div>
-                            @endforeach
+                        @notifications
+                        @endnotifications
                     </div>
                 </div>
               </li>
 
                 <li class="nav-item dropdown">
-                  <a class="nav-link py-0" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img class="w-100 rounded-circle" style="max-width: 2rem;" src={{ Auth::user()->profile->profileImage() }} alt={{ Auth::user()->username }} />
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="right: 0; left: auto;">
-                    <a class="dropdown-item" href="/{{ Auth::user()->username }}">
-                        Profile
-                    </a>
-                    <a class="dropdown-item" href="/like/p/all">
-                        Likes
-                    </a>
-                    <a class="dropdown-item" href="{{ route('logout') }}"
-                       onclick="event.preventDefault();
-                                     document.getElementById('logout-form').submit();">
-                        {{ __('Logout') }}
-                    </a>
-
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
-                  </div>
+                    @userDropMenu
+                    @enduserDropMenu
                 </li>
             @endguest
               </ul>
@@ -150,31 +105,15 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <div class="dropdown-item">
+                        @notifications
+                        @endnotifications
                     </div>
                 </div>
               </li>
 
                 <li class="nav-item dropup">
-                  <a class="" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img class="rounded-circle w-100 mx-4 py-1" style="max-width: 1.5rem;" src={{ Auth::user()->profile->profileImage() }} alt={{ Auth::user()->username }} />
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="/{{ Auth::user()->username }}">
-                        Profile
-                    </a>
-                    <a class="dropdown-item" href="/like/p/all">
-                        Likes
-                    </a>
-                    <a class="dropdown-item" href="{{ route('logout') }}"
-                       onclick="event.preventDefault();
-                                     document.getElementById('logout-form').submit();">
-                        {{ __('Logout') }}
-                    </a>
-
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
-                  </div>
+                  @userDropMenu
+                  @enduserDropMenu
                 </li>
             </div>
             </div>

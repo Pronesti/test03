@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Blade;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +24,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Blade::component('components.modal', 'modal');
+        Blade::component('components.notifications', 'notifications');
+        Blade::component('components.userDropMenu', 'userDropMenu');
+        Blade::component('components.post', 'post');
+        Blade::component('components.postButtons', 'postButtons');
+        Blade::component('components.pagination', 'pagination');
+        Blade::component('components.comment', 'comment');
+        Blade::component('components.addComment', 'addComment');
     }
 }
