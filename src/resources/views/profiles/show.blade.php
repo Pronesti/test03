@@ -40,12 +40,12 @@
         </div>
     </div>
     @if ($willShow)
+    <hr>
+      @postCategory(['isMine' => Auth::user()->id == $user->id,'category' => $category, 'username' => $user->username])
+      @endpostCategory
         <div class="row p-4">
-            @foreach ($user->posts as $post)
-                <div class="col-4 p-1 p-md-2 p-lg-3">
-                  <a href="/p/{{$post->id}}"><img class="w-100" src="/storage/{{ $post->image }}" /></a>
-                </div>
-            @endforeach 
+            @showPosts(['posts' => $posts])
+            @endshowPosts
         </div>
           @modal(['id'=> 'followersModal', 'title' => 'Followers'])
                 @foreach ($user->profile->followers as $follower)

@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class ProfilesController extends Controller
 {
-    public function show($username)
+    public function show($username,$category = 'posts')
     {
         $user = \App\User::where('username', $username)->firstOrFail();
 
@@ -30,7 +30,26 @@ class ProfilesController extends Controller
                     $willShow = false;
             }
         }
-        return view('profiles.show', compact('user', 'follows', 'willShow', 'waiting'));
+
+        $posts = [];
+        if(Auth::check() && Auth::id() == $user->id){
+            switch($category){
+                case 'likes':
+                    $postsId = $user->likingPosts()->pluck('posts.id');
+                    $posts = \App\Post::whereIn('id', $postsId)->latest()->get();
+                    break;
+                case 'saves':
+                    $saves = \App\Save::where('user_id', Auth::id())->pluck('post_id')->toArray();
+                    $posts = \App\Post::whereIn('id',$saves)->latest()->get();
+                    break;
+                default:
+                    $posts = $user->posts;
+            }
+        }else{
+            $posts = $user->posts;
+        }
+
+        return view('profiles.show', compact('user', 'follows', 'willShow', 'waiting', 'category', 'posts'));
     }
 
     public function edit(\App\User $user){

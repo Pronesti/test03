@@ -5,10 +5,10 @@
     <a class="dropdown-item" href="/{{ Auth::user()->username }}">
         <img class="w-100 mr-1" style="max-width: 1.5rem;" src="/img/profile.svg" alt="explore" /> Profile
     </a>
-    <a class="dropdown-item" href="/like/p/all">
+    <a class="dropdown-item" href="/{{ Auth::user()->username }}/likes">
         <img class="w-100 mr-1" style="max-width: 1.5rem;" src="/img/heart-off.svg" alt="likes" /> Likes
     </a>
-    <a class="dropdown-item" href="/bookmark/all">
+    <a class="dropdown-item" href="/{{ Auth::user()->username }}/saves">
         <img class="w-100 mr-1" style="max-width: 1.5rem;" src="/img/bookmark-off.svg" alt="saved" /> Saved
     </a>
     <a class="dropdown-item" href="{{ route('logout') }}"
