@@ -21,7 +21,10 @@
             @if($waiting)
               <button class="btn btn-outline-secondary">Pending</button>
             @else
-              <follow-button user-id="{{$user->id}}" follows="{{ $follows }}" ></follow-button>
+            <div class="d-block d-md-flex">
+              <follow-button user-id="{{$user->id}}" follows="{{ $follows }}" ></follow-button> 
+              <img src="/img/options.svg" style="max-width: 1.5rem;" class="ml-md-5"/>
+            </div>
             @endif
             @endcan
             </div>
@@ -40,81 +43,28 @@
         <div class="row p-4">
             @foreach ($user->posts as $post)
                 <div class="col-4 p-1 p-md-2 p-lg-3">
-                <a href="/p/{{$post->id}}"><img class="w-100" src="/storage/{{ $post->image }}" /></a>
+                  <a href="/p/{{$post->id}}"><img class="w-100" src="/storage/{{ $post->image }}" /></a>
                 </div>
             @endforeach 
         </div>
-        <div class="modal fade" id="followingModal" tabindex="-1" aria-labelledby="followingModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title ml-auto" id="exampleModalLabel">Following</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="font-size:  2rem">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  @foreach ($user->following as $following)
-                <div class="container d-flex  mx-0 px-0 pb-2">
-                <div class="col-2 px-0">
-                    <a class="text-decoration-none text-reset" href="/{{$following->user->username}}">
-                        <img class="rounded-circle mr-2" src="{{$following->profileImage()}}" style="width: 3rem" /></div>
-                    </a>
-                <div class="col-7 ml-n4">
-                    <a class="text-decoration-none text-reset" href="/{{$following->user->username}}">
-                        <strong>{{$following->user->username}}</strong>
-                        <div class="text-muted">{{$following->user->name}}</div>
-                    </a>
-                </div>
-                <div class="col-3">
-                    @if($following->user->id == Auth::id())
-                    @elseif(Auth::check())
-                    <follow-button user-id={{$following->user->id}} follows={{Auth::user()->following->contains($following)}}></follow-button>
-                    @endif
-                </div>
-                </div>
+          @modal(['id'=> 'followersModal', 'title' => 'Followers'])
+                @foreach ($user->profile->followers as $follower)
+                  @modalUserLine(['relation' => $follower])
+                  @endmodalUserLine
                 @endforeach
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="modal fade" id="followersModal" tabindex="-1" aria-labelledby="followersModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title ml-auto" id="exampleModalLabel">Followers</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="font-size:  2rem">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  @foreach ($user->profile->followers as $follower)
-                  <div class="container d-flex  mx-0 px-0 pb-2">
-                    <div class="col-2 px-0">
-                        <a class="text-decoration-none text-reset" href="/{{$follower->username}}">
-                            <img class="rounded-circle mr-2" src="{{$follower->profile->profileImage()}}" style="width: 3rem" /></div>
-                        </a>
-                    <div class="col-7 ml-n4">
-                        <a class="text-decoration-none text-reset" href="/{{$follower->username}}">
-                            <strong>{{$follower->username}}</strong>
-                            <div class="text-muted">{{$follower->name}}</div>
-                        </a>
-                    </div>
-                    <div class="col-3">
-                        @if($follower->id == Auth::id())
-                        @elseif(Auth::check())
-                        <follow-button user-id={{$follower->id}} follows={{Auth::user()->following->contains($follower->profile)}}></follow-button>
-                        @endif
-                    </div>
-                    </div>
+          @endmodal
+          @modal(['id'=> 'followingModal', 'title' => 'Following'])
+                @foreach ($user->following as $following)
+                  @modalUserLine(['relation' => $following->user])
+                  @endmodalUserLine
                 @endforeach
-                </div>
-              </div>
-            </div>
-          </div>
+          @endmodal
     @else
         <div class="row d-block py-5">
-            <div class="text-center d-block w-100"><h4>Esta cuenta es privada</h4></div>
+            <div class="text-center d-block w-100 bg-white p-5 border" style="box-shadow: inset 0 2px 3px -3px rgba(0,0,0,0.4);">
+              <h6 class="font-weight-bold mb-4">This Account is Private</h6>
+              <span>Follow to see their photos and videos.</span>
+            </div>
         </div>
     @endif
         
