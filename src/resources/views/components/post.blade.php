@@ -18,7 +18,7 @@
     <div class="row">
         <div class="col-10 offset-1 col-lg-8 offset-lg-2 bg-white border border-bottom-0 border-top-0">
             @if(count($post->images) > 1)
-                @carousel(['images'=> $post->images])
+                @carousel(['id' => $post->id, 'images'=> $post->images])
                 @endcarousel
             @else
                 <img class="w-100" src="/storage/{{$post->images[0]}}" alt="{{$post->caption}}">
