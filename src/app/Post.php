@@ -12,12 +12,16 @@ class Post extends Model
      * @var array
      */
     protected $fillable = [
-        'caption', 'image', 'updated_at', 'created_at', 'location'
+        'caption', 'images', 'updated_at', 'created_at', 'location'
     ];
 
     protected $dates = [
         'created_at',
         'updated_at'
+    ];
+
+    protected $casts = [
+        'images' => 'array'
     ];
 
     public function user(){

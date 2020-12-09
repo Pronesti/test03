@@ -11,11 +11,16 @@
         </div>
 
         <div class="row">
-            <label for="image" class="col-md-4 col-form-label">Post Image</label>
-            <input type="file" class="form-control-file" id="image" name="image">
-            @if ($errors->has('image'))                
-                    <strong> {{ $errors->first('image') }}</strong>
-                @endif
+            <label for="images" class="col-md-4 col-form-label">Post Images</label>
+            <input type="file" class="form-control-file" id="file" name="file[]" multiple>
+            @if ($errors->has('file'))                
+                <strong> {{ $errors->first('file') }}</strong>
+            @endif
+            <ul class="list-unstyled mt-3">
+            @foreach($errors->get('file.*') as $message)
+                    <li class="alert alert-danger" role="alert"> {{$message[0]}}</li>
+            @endforeach
+            </ul>
         </div>
 
         <div class="form-group row">

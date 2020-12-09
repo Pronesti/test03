@@ -12,8 +12,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(MyUserSeeder::class);
-        $USERS_NUMBER = 50;
-        $POSTS_PER_USER = 1;
+        $USERS_NUMBER = 10;
+        $POSTS_PER_USER = 5;
         $FOLLOWS_PER_USER = 10;
 
         $faker = Faker\Factory::create();

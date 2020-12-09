@@ -27,6 +27,7 @@ class AppServiceProvider extends ServiceProvider
         Blade::component('components.showPosts', 'showPosts');
         Blade::component('components.postCategory', 'postCategory');
         Blade::component('components.modal', 'modal');
+        Blade::component('components.carousel', 'carousel');
         Blade::component('components.modalUserLine', 'modalUserLine');
         Blade::component('components.notifications', 'notifications');
         Blade::component('components.userDropMenu', 'userDropMenu');

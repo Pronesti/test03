@@ -24,21 +24,24 @@ class PostsController extends Controller
     }
 
     public function store(){
-
+        $imagesPath = [];
         $data = request()->validate([
             'caption' => 'required',
-            'image' => ['required', 'mimes:jpeg,bmp,png,jpg'],
+            'file' => ['required','array'],
+            'file.*' => ['file', 'mimes:jpeg,bmp,png,jpg'],
             'location' => ''
-        ]);
+            ]);
+            foreach(request()->file as $image){
+                $path = $image->store('uploads', 'public');
+                $imagesPath []= $path;
+                $image = \Intervention\Image\Facades\Image::make(public_path("storage/{$path}"))->fit(1200,1200);
+                $image->save();
+            }
 
-        $imagePath = request('image')->store('uploads', 'public');
-
-        $image = \Intervention\Image\Facades\Image::make(public_path("storage/{$imagePath}"))->fit(1200,1200);
-        $image->save();
 
         auth()->user()->posts()->create([
             'caption' => $data['caption'],
-            'image' => $imagePath,
+            'images' => $imagesPath,
             'location' => $data['location'],
 
         ]);
