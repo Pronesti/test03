@@ -13,7 +13,7 @@
     <div class="col-3">
         @if($relation->id == Auth::id())
         @elseif(Auth::check())
-            <follow-button user-id={{$relation->id}} follows={{Auth::user()->following->contains($relation->profile)}}></follow-button>
+            <follow-button user-id={{$relation->id}} follows={{Auth::user()->following()->where('accepted',1)->get()->contains($relation->profile)}}></follow-button>
         @endif
     </div>
 </div>

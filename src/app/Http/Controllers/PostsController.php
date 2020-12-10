@@ -13,7 +13,7 @@ class PostsController extends Controller
     }
 
     public function index(){
-        $users = Auth::user()->following()->pluck('profiles.user_id');
+        $users = Auth::user()->following()->where('accepted',1)->get()->pluck('profiles.user_id');
         $users[]= Auth::id();
         $posts = \App\Post::whereIn('user_id', $users)->with('user')->latest()->paginate(5);
         return view('posts.index',compact('posts'));
@@ -49,14 +49,14 @@ class PostsController extends Controller
     }
     public function show(\App\Post $post){
         if($post->user->profile->protected){
-            if(!Auth::check() || !(Auth::user()->following->contains($post->user->id)) && Auth::id() !== $post->user->id){
+            if(!Auth::check() || !(Auth::user()->following()->where('accepted',1)->get()->contains($post->user->id)) && Auth::id() !== $post->user->id){
                 return redirect('/'. $post->user->username);
             }
         }
         $ago = $post['created_at']->diffForHumans();
-        $likes = (Auth::check()) ? Auth::user()->likingPosts->contains($post->id) : false;
-        $isSaved = (Auth::check()) ? \App\Save::where('user_id', Auth::id())->where('post_id', $post->id)->get()->count() > 0 : false;
-        $follows = (Auth::check()) ? Auth::user()->following->contains($post->user->id) : false;
+        $likes = (Auth::check()) ? Auth::user()->likedPosts->contains($post->id) : false;
+        $isSaved = (Auth::check()) ? $post->saves->contains(Auth::id()) : false;
+        $follows = (Auth::check()) ? Auth::user()->following()->where('accepted',1)->get()->contains($post->user->id) : false;
         $comments = \App\Comment::where('post_id',$post->id)->with('likes')->get();
         return view('posts.show', compact('post','likes','follows','ago','comments','isSaved'));
     }

@@ -31,15 +31,15 @@
         </div>
         <div class="d-flex justify-content-around">
             <div class="pr-4"><strong>{{$user->posts->count()}}</strong> posts</div>
-            <div class="pr-4"><a data-toggle="modal" data-target="#followersModal"><strong>{{$user->profile->followers->count()}}</strong> followers </a></div>
-            <div class="pr-4"><a data-toggle="modal" data-target="#followingModal"><strong>{{$user->following->count()}}</strong> following </a></div>
+            <div class="pr-4"><a data-toggle="modal" data-target="#followersModal"><strong>{{$user->profile->followers()->where('accepted',1)->count()}}</strong> followers </a></div>
+            <div class="pr-4"><a data-toggle="modal" data-target="#followingModal"><strong>{{$user->following()->where('accepted',1)->count()}}</strong> following </a></div>
         </div>
             <div class="pt-4 font-weight-bold">{{ $user->profile->title }}</div>
             <div>{{ $user->profile->description }}</div>
             <div><a href="https://{{ $user->profile->url}}">{{ $user->profile->url}}</a></div>
         </div>
     </div>
-    @if ($willShow)
+    @if ($willShow && !$waiting)
     <hr>
       @postCategory(['isMine' => Auth::user()->id == $user->id,'category' => $category, 'username' => $user->username])
       @endpostCategory
@@ -48,13 +48,13 @@
             @endshowPosts
         </div>
           @modal(['id'=> 'followersModal', 'title' => 'Followers'])
-                @foreach ($user->profile->followers as $follower)
+                @foreach ($user->profile->followers()->where('accepted',1)->get() as $follower)
                   @modalUserLine(['relation' => $follower])
                   @endmodalUserLine
                 @endforeach
           @endmodal
           @modal(['id'=> 'followingModal', 'title' => 'Following'])
-                @foreach ($user->following as $following)
+                @foreach ($user->following()->where('accepted',1)->get() as $following)
                   @modalUserLine(['relation' => $following->user])
                   @endmodalUserLine
                 @endforeach

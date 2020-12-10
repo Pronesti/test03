@@ -1,10 +1,7 @@
 @php
-    $requests = DB::select('select * from profile_user where profile_id = :profileid and accepted = 0',['profileid' => Auth::user()->profile->id]);
+$users = Auth::user()->profile->followers()->where('accepted',0)->get();   
 @endphp
-@foreach($requests as $request)
-    @php
-        $user = \App\User::find($request->user_id);    
-    @endphp
+@foreach($users as $user)
     <div class="container d-flex  mx-0 px-0 pb-2" style="width: 30rem;">
         <div class="col-2 px-0">
             <a class="text-decoration-none text-reset" href="/{{$user->username}}">
@@ -16,11 +13,11 @@
             </a>
         </div>
         <div class="col-5 d-flex">
-            <form method="POST" action="/follow/confirm/{{$request->user_id}}" enctype="multipart/form-data">
+            <form method="POST" action="/follow/confirm/{{$user->id}}" enctype="multipart/form-data">
                 @csrf
                 <button class="btn btn-primary mr-1" type="submit">Aceptar</button>
             </form>
-            <form method="POST" action="/follow/delete/{{$request->user_id}}" enctype="multipart/form-data">
+            <form method="POST" action="/follow/delete/{{$user->id}}" enctype="multipart/form-data">
                 @csrf
                 <button class="btn btn-danger mr-1" type="submit">Cancelar</button>
             </form>

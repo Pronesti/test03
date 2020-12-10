@@ -88,7 +88,7 @@
             <div class="col-3">
                 @if($like->id == Auth::id())
                 @else
-                <follow-button user-id={{$like->id}} follows={{Auth::user()->following->contains($like->profile)}}></follow-button>
+                <follow-button user-id={{$like->id}} follows={{Auth::user()->following()->where('accepted',1)->get()->contains($like->profile)}}></follow-button>
                 @endif
             </div>
             </div>

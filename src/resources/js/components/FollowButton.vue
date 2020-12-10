@@ -20,7 +20,7 @@
                         })
                         .catch(errors => {
                             console.log(errors);
-                            if(error.response.status == 401){
+                            if(errors.response.status == 401){
                                 window.location = '/users/login'
                             }
                         });

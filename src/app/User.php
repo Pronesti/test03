@@ -55,25 +55,24 @@ class User extends Authenticatable
         return $this->hasMany(Post::class)->orderBy('created_at', 'DESC');
     }
 
-    public function saves(){
-        return $this->hasMany(Save::class)->orderBy('created_at', 'DESC');
+    public function commented(){
+        return $this->belongsToMany(Comment::class);
     }
 
     public function following(){
         return $this->belongsToMany(Profile::class)->withTimestamps()->withPivot('accepted');
     }
 
-    public function likingPosts(){
-        return $this->belongsToMany(Post::class);
+    public function likedPosts(){
+        return $this->belongsToMany(Post::class)->withTimestamps();
+    }
+
+    public function saves(){
+        return $this->belongsToMany(Post::class,'saves')->withTimestamps()->orderBy('created_at', 'DESC');
     }
 
     public function likingComments(){
-        return $this->belongsToMany(Comment::class);
+        return $this->belongsToMany(Comment::class)->withTimestamps();
     }
-
-    public function commented(){
-        return $this->belongsToMany(Comment::class);
-    }
-
 
 }

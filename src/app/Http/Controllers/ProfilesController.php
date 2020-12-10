@@ -17,10 +17,10 @@ class ProfilesController extends Controller
         $follows = false;
         $waiting = false;
         if(Auth::check()){
-            $follows = $loggedUser->following->contains($user->id);
+            $follows = $loggedUser->following->contains($user->profile->id);
             if($follows){
-                $select = DB::select('select * from profile_user where user_id = :userid and profile_id = :profileid',['userid'=> Auth::id(), 'profileid' => $user->profile->id]);
-                $waiting = ($select[0]->accepted == 0);
+                $accepted = Auth::user()->following()->where('profile_id',$user->profile->id)->firstOrFail()->pivot->accepted;
+                $waiting = ($accepted == 0);
             }
         }
 
@@ -35,12 +35,10 @@ class ProfilesController extends Controller
         if(Auth::check() && Auth::id() == $user->id){
             switch($category){
                 case 'likes':
-                    $postsId = $user->likingPosts()->pluck('posts.id');
-                    $posts = \App\Post::whereIn('id', $postsId)->latest()->get();
+                    $posts = $user->likedPosts;
                     break;
                 case 'saves':
-                    $saves = \App\Save::where('user_id', Auth::id())->pluck('post_id')->toArray();
-                    $posts = \App\Post::whereIn('id',$saves)->latest()->get();
+                    $posts = $user->saves;
                     break;
                 default:
                     $posts = $user->posts;
