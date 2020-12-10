@@ -1,14 +1,14 @@
 <a class="" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    <img class="rounded-circle w-100 mx-4 py-1" style="max-width: 1.5rem;" src={{ Auth::user()->profile->profileImage() }} alt={{ Auth::user()->username }} />
+    <img class="rounded-circle w-100 mx-4 py-1" style="max-width: 1.5rem;" src={{ $authUser->profile->profileImage() }} alt={{ $authUser->username }} />
   </a>
   <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-    <a class="dropdown-item" href="/{{ Auth::user()->username }}">
+    <a class="dropdown-item" href="/{{ $authUser->username }}">
         <img class="w-100 mr-1" style="max-width: 1.5rem;" src="/img/profile.svg" alt="explore" /> Profile
     </a>
-    <a class="dropdown-item" href="/{{ Auth::user()->username }}/likes">
+    <a class="dropdown-item" href="/{{ $authUser->username }}/likes">
         <img class="w-100 mr-1" style="max-width: 1.5rem;" src="/img/heart-off.svg" alt="likes" /> Likes
     </a>
-    <a class="dropdown-item" href="/{{ Auth::user()->username }}/saves">
+    <a class="dropdown-item" href="/{{ $authUser->username }}/saves">
         <img class="w-100 mr-1" style="max-width: 1.5rem;" src="/img/bookmark-off.svg" alt="saved" /> Saved
     </a>
     <a class="dropdown-item" href="{{ route('logout') }}"

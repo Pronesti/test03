@@ -11,9 +11,9 @@
         </a>
     </div>
     <div class="col-3">
-        @if($relation->id == Auth::id())
-        @elseif(Auth::check())
-            <follow-button user-id={{$relation->id}} follows={{Auth::user()->following()->where('accepted',1)->get()->contains($relation->profile)}}></follow-button>
+        @if($relation->id == $authUser->id)
+        @elseif($authUser)
+            <follow-button user-id={{$relation->id}} follows={{$authUser ? $authUser->following()->where('accepted',1)->get()->contains($relation->profile) : false}}></follow-button>
         @endif
     </div>
 </div>

@@ -53,12 +53,12 @@
                 </div>
                 <div style="overflow-y: auto;overflow-x:hidden; height: 23rem;">
                 @foreach ($comments as $comment)
-                    @comment(['comment' => $comment])
+                    @comment(['authUser' => $authUser, 'comment' => $comment])
                     @endcomment
                 @endforeach
                 </div>
                 <hr>
-                @postButtons(['post'=>$post])
+                @postButtons(['authUser' => $authUser, 'post'=>$post])
                 @endpostButtons 
                 <div class="row d-block pl-3">
                     <a data-toggle="modal" data-target="#likesModal"><strong>{{$post->likes()->count()}} likes</strong></a>

@@ -1,5 +1,5 @@
 @php
-$users = Auth::user()->profile->followers()->where('accepted',0)->get();   
+$users = $authUser->profile->followers()->where('accepted',0)->get();   
 @endphp
 @foreach($users as $user)
     <div class="container d-flex  mx-0 px-0 pb-2" style="width: 30rem;">

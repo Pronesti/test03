@@ -13,7 +13,7 @@
                 @endif
             </div>
     </div>
-    <div class="col-1"><like-comment comment-id="{{$comment->id}}" likes="{{$comment->likes->contains(Auth::id())}}"></like-comment></div>
+    <div class="col-1"><like-comment comment-id="{{$comment->id}}" likes="{{$authUser ? $comment->likes->contains($authUser->id) : false}}"></like-comment></div>
 </div>
     @modal(['id'=> 'likesModalComment' . $comment->id, 'title'=>'Likes'])
         @foreach ($comment->likes as $like)
@@ -29,9 +29,14 @@
             </a>
         </div>
         <div class="col-2">
-            @if($like->id == Auth::id())
-            @else
-            <follow-button user-id={{$like->id}} follows={{Auth::user()->following->contains($like->profile)}}></follow-button>
+            @if($authUser)
+                @if($like->id != $authUser->id )
+                    @if($like->profile->followers()->where('accepted',0)->get()->contains($authUser->id))
+                        <div class="btn btn-outline-secondary"> Pending </div>
+                    @else
+                        <follow-button user-id={{$like->id}} follows={{$authUser ? $authUser->following()->where('accepted',1)->get()->contains($like->profile) : false}}></follow-button>
+                    @endif
+                @endif
             @endif
         </div>
         </div>

@@ -30,7 +30,7 @@
             <div>
                 <div class="row">
                     <div class="col-12">
-                        @postButtons(['post'=>$post])
+                        @postButtons(['authUser' => $authUser, 'post'=>$post])
                         @endpostButtons                        
                         <a data-toggle="modal" data-target="#likesModalPost{{$post->id}}"><strong>{{$post->likes()->count()}} likes</strong></a>
                         <div class="d-flex align-items-center">
@@ -44,7 +44,7 @@
                             <div class="d-flex bd-highlight">
                                 <span class="font-weight-bolder mr-1"><a class="text-dark" href="/{{$comment->user->username}}">{{$comment->user->username}}</a> </span>
                                 <div> {{$comment->comment_text }} </div>
-                                <div class="ml-auto"><like-comment comment-id="{{$comment->id}}" likes="{{$comment->likes->contains(Auth::id())}}"></like-comment></div>
+                                <div class="ml-auto"><like-comment comment-id="{{$comment->id}}" likes="{{$authUser ? $comment->likes->contains($authUser->id) : false}}"></like-comment></div>
                             </div>
                         @endforeach
 
@@ -72,9 +72,9 @@
                 </a>
             </div>
             <div class="col-2">
-                @if($like->id == Auth::id())
+                @if($like->id == $authUser->id)
                 @else
-                <follow-button user-id={{$like->id}} follows={{Auth::user()->following()->where('accepted',1)->get()->contains($like->profile)}}></follow-button>
+                <follow-button user-id={{$like->id}} follows={{$authUser ? $authUser->following()->where('accepted',1)->get()->contains($like->profile) : false}}></follow-button>
                 @endif
             </div>
             </div>

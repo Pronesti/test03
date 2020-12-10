@@ -1,3 +1,6 @@
+@php
+$authUser = Auth::check() ? Auth::user() : false;    
+@endphp
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -51,14 +54,14 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="right: 0; left: auto;">
                     <div class="dropdown-item">
-                        @notifications
+                        @notifications(['authUser' => $authUser])
                         @endnotifications
                     </div>
                 </div>
               </li>
 
                 <li class="nav-item dropdown">
-                    @userDropMenu
+                    @userDropMenu(['authUser' => $authUser])
                     @enduserDropMenu
                 </li>
             @endguest
@@ -105,14 +108,14 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <div class="dropdown-item">
-                        @notifications
+                        @notifications(['authUser' => $authUser])
                         @endnotifications
                     </div>
                 </div>
               </li>
 
                 <li class="nav-item dropup">
-                  @userDropMenu
+                  @userDropMenu(['authUser' => $authUser])
                   @enduserDropMenu
                 </li>
             </div>

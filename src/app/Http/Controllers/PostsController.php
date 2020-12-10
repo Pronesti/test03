@@ -13,10 +13,11 @@ class PostsController extends Controller
     }
 
     public function index(){
-        $users = Auth::user()->following()->where('accepted',1)->get()->pluck('profiles.user_id');
-        $users[]= Auth::id();
+        $authUser = Auth::check() ? Auth::user() : false;
+        $users = $authUser->following()->where('accepted',1)->get()->pluck('profiles.user_id');
+        $users[]= $authUser->id;
         $posts = \App\Post::whereIn('user_id', $users)->with('user')->latest()->paginate(5);
-        return view('posts.index',compact('posts'));
+        return view('posts.index',compact('posts','authUser'));
     }
 
     public function create(){
@@ -48,16 +49,17 @@ class PostsController extends Controller
         return redirect('/' . Auth::user()->username);
     }
     public function show(\App\Post $post){
+        $authUser = Auth::check() ? Auth::user() : false;
         if($post->user->profile->protected){
-            if(!Auth::check() || !(Auth::user()->following()->where('accepted',1)->get()->contains($post->user->id)) && Auth::id() !== $post->user->id){
+            if(!$authUser || !($authUser->following()->where('accepted',1)->get()->contains($post->user->id)) && Auth::id() !== $post->user->id){
                 return redirect('/'. $post->user->username);
             }
         }
         $ago = $post['created_at']->diffForHumans();
-        $likes = (Auth::check()) ? Auth::user()->likedPosts->contains($post->id) : false;
-        $isSaved = (Auth::check()) ? $post->saves->contains(Auth::id()) : false;
-        $follows = (Auth::check()) ? Auth::user()->following()->where('accepted',1)->get()->contains($post->user->id) : false;
+        $likes = ($authUser) ? $authUser->likedPosts->contains($post->id) : false;
+        $isSaved = ($authUser) ? $post->saves->contains($authUser->id) : false;
+        $follows = ($authUser) ? $authUser->following()->where('accepted',1)->get()->contains($post->user->id) : false;
         $comments = \App\Comment::where('post_id',$post->id)->with('likes')->get();
-        return view('posts.show', compact('post','likes','follows','ago','comments','isSaved'));
+        return view('posts.show', compact('post','likes','follows','ago','comments','isSaved', 'authUser'));
     }
 }

@@ -10,29 +10,28 @@ class ProfilesController extends Controller
 {
     public function show($username,$category = 'posts')
     {
+        $authUser = Auth::check() ? Auth::user() : false;
         $user = \App\User::where('username', $username)->firstOrFail();
-
-        $loggedUser = Auth::user();
 
         $follows = false;
         $waiting = false;
-        if(Auth::check()){
-            $follows = $loggedUser->following->contains($user->profile->id);
+        if($authUser){
+            $follows = $authUser->following->contains($user->profile->id);
             if($follows){
-                $accepted = Auth::user()->following()->where('profile_id',$user->profile->id)->firstOrFail()->pivot->accepted;
+                $accepted = $authUser->following()->where('profile_id',$user->profile->id)->firstOrFail()->pivot->accepted;
                 $waiting = ($accepted == 0);
             }
         }
 
         $willShow = true;
         if($user->profile->protected){
-            if(!Auth::check() || !$follows && !($loggedUser->id == $user->id)){
+            if(!$authUser || !$follows && !($authUser->id == $user->id)){
                     $willShow = false;
             }
         }
 
         $posts = [];
-        if(Auth::check() && Auth::id() == $user->id){
+        if($authUser && $authUser->id == $user->id){
             switch($category){
                 case 'likes':
                     $posts = $user->likedPosts;
@@ -47,7 +46,7 @@ class ProfilesController extends Controller
             $posts = $user->posts;
         }
 
-        return view('profiles.show', compact('user', 'follows', 'willShow', 'waiting', 'category', 'posts'));
+        return view('profiles.show', compact('user', 'follows', 'willShow', 'waiting', 'category', 'posts', 'authUser'));
     }
 
     public function edit(\App\User $user){

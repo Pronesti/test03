@@ -3,7 +3,7 @@
 @section('content')
     <div class="container-fluid">
         @foreach($posts as $post)
-            @post(['post' => $post])
+            @post(['authUser' => $authUser,'post' => $post])
             @endpost
         @endforeach
     </div>

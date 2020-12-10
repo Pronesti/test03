@@ -49,13 +49,13 @@
         </div>
           @modal(['id'=> 'followersModal', 'title' => 'Followers'])
                 @foreach ($user->profile->followers()->where('accepted',1)->get() as $follower)
-                  @modalUserLine(['relation' => $follower])
+                  @modalUserLine(['authUser' => $authUser,'relation' => $follower])
                   @endmodalUserLine
                 @endforeach
           @endmodal
           @modal(['id'=> 'followingModal', 'title' => 'Following'])
                 @foreach ($user->following()->where('accepted',1)->get() as $following)
-                  @modalUserLine(['relation' => $following->user])
+                  @modalUserLine(['authUser' => $authUser,'relation' => $following->user])
                   @endmodalUserLine
                 @endforeach
           @endmodal
