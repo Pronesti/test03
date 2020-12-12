@@ -34,6 +34,7 @@ Route::get('/p/create', 'PostsController@create')->name('post.create')->middlewa
 Route::post('/p/store', 'PostsController@store')->name('post.store')->middleware('auth');
 Route::get('/p/{post}', 'PostsController@show')->name('post.show');
 
+Route::get('/stories/', 'StoriesController@index')->name('story.index')->middleware('auth');
 Route::post('/story/store', 'StoriesController@store')->name('story.store')->middleware('auth');
 
 Route::group(['prefix' => 'users'], function () {
