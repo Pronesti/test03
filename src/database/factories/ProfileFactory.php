@@ -9,6 +9,6 @@ $factory->define(Profile::class, function (Faker $faker) {
     return [
         'description' => $faker->sentence(6,true),
         'url' => $faker->url,
-        'profileImg' => \Faker\Provider\Image::image(public_path("storage/"),600,600,'people',false)
+        'profileImg' => \Faker\Provider\Image::image(public_path("storage/"),600,600,null,false)
         ];
 });

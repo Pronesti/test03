@@ -14,9 +14,10 @@ class PostsController extends Controller
 
     public function index(){
         $authUser = Auth::check() ? Auth::user() : false;
-        $users = $authUser->following()->where('accepted',1)->get()->pluck('profiles.user_id');
+        $users = $authUser->following()->where('accepted',1)->get()->pluck('id');
         $users[]= $authUser->id;
         $posts = \App\Post::whereIn('user_id', $users)->with('user')->latest()->paginate(5);
+
         return view('posts.index',compact('posts','authUser'));
     }
 
