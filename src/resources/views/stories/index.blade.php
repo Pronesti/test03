@@ -72,8 +72,19 @@ ol.carousel-indicators li.active {
                 @else
                     <div class="carousel-item">
                 @endif    
-                    <img class="d-block w-100" style="height: 100vh;" src="/storage/{{$story->image}}" alt="">
+                        <img class="d-block w-100" style="height: 100vh;" src="/storage/{{$story->image}}" alt="">
+                    
+                        <div style="position: absolute;top: 1.5rem; left: 0.5rem;z-index: 1;">
+                            <a class="text-white text-decoration-none" href="/{{$story->user->username}}">
+                                <img class="w-100 rounded-circle boder border-secondary" style="max-width: 2rem;" src="{{$story->user->profile->profileImage()}}" alt="{{$story->user->username}}" />
+                                <span class="mx-1">{{$story->user->username}}</span><span class="text-muted ml-1">{{$story->created_at->diffForHumans(null,true,true)}}</span>
+                            </a>
+                        </div>
+
                     </div>
+
+                    
+
                 @endforeach
             </div>
         

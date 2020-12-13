@@ -48,7 +48,7 @@
                              {{$post->caption }}
                             </span>
                         </div>
-                        <div class="mt-2 text-muted"> {{$post->created_at->diffForHumans(null,true)}} </div>
+                        <div class="mt-2 text-muted"> {{$post->created_at->diffForHumans(null,true,true)}} </div>
                     </div>
                 </div>
                 <div style="overflow-y: auto;overflow-x:hidden; height: 23rem;">

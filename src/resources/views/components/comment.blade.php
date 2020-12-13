@@ -7,7 +7,7 @@
             <span class="font-weight-bold mr-1"><a class="text-dark" href="/{{$comment->user->username}}">{{$comment->user->username}}</a> </span>
             <div> {{$comment->comment_text }} </div>
         </div>
-            <div class="mt-2 text-muted"> {{$comment->created_at->diffForHumans(null,true)}}
+            <div class="mt-2 text-muted"> {{$comment->created_at->diffForHumans(null,true,true)}}
                 @if($comment->likes->count() > 0)
                 <a data-toggle="modal" data-target="#likesModalComment{{$comment->id}}">{{$comment->likes->count()}} likes</a> 
                 @endif
