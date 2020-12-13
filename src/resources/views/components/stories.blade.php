@@ -4,8 +4,8 @@
     $users = \App\User::whereIn('id', $users)->get();
 @endphp
 <div class="row">
-    <div class="col-10 offset-1 col-lg-6 offset-lg-3 mb-4">
-        <div class="d-flex bg-white border rounded mx-3">
+    <div class="col-10 offset-1 mb-4 px-0">
+        <div class="d-flex bg-white border rounded">
             @foreach($users as $user)
                 <div>
                     <a href="/stories/">

@@ -22,9 +22,9 @@ $authUser = Auth::check() ? Auth::user() : false;
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body>
+<body style="overflow-x: hidden">
     <div id="app">
-        <nav class="navbar navbar-expand-sm navbar-light bg-white d-none d-sm-flex border border-top-0 py-0">
+        <nav class="navbar navbar-expand-sm navbar-light bg-white d-none d-sm-flex border border-top-0 py-0 sticky-top">
             <a class="navbar-brand instaFont ml-5 py-0" href="{{ url('/') }}">
                 Instagram
             </a>
@@ -39,24 +39,8 @@ $authUser = Auth::check() ? Auth::user() : false;
                     </li>
                 @endif
             @else
-            <li class="nav-item dropdown px-3">
-                <a class="btn btn-primary btn-lg py-0 px-2" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    +
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <div class="dropdown-item">
-                        <form class="form-group" action="/story/store" enctype="multipart/form-data" method="POST">
-                            @csrf
-                            <label class="d-block text-center">Upload Story</label>
-                            <input class="form-control-file" type="file" name="image">
-                            <button class="btn btn-primary btn-block mt-1" type="submit">Upload</button>
-                            @if ($errors->has('image'))                
-                                <strong> {{ $errors->first('image') }}</strong>
-                            @endif
-                        </form>
-                    </div>
-                </div>
-              </li>
+            @uploadStory(['drop' => 'dropdown'])
+            @enduploadStory
             <li class="nav-item">
                <a href="/"> <img class="w-100 mr-3 py-1" style="max-width: 1.5rem;" src="/img/home.svg" alt="home" /> </a>
             </li>
@@ -88,7 +72,7 @@ $authUser = Auth::check() ? Auth::user() : false;
 
           <!-- SMALLER SCREENS -->
 
-          <nav class="navbar navbar-light bg-white d-sm-none px-1 mt-n3  border border-top-0" style="height: 3.8rem">
+          <nav class="navbar navbar-light bg-white d-sm-none px-1 mt-n3  border border-top-0 sticky-top" style="height: 3.8rem">
             <a class="navbar-brand instaFont mx-auto" href="{{ url('/') }}">
                 Instagram
             </a>
@@ -108,14 +92,17 @@ $authUser = Auth::check() ? Auth::user() : false;
                 @endif
                 </div>
             @else
+            
             <div class="btn-group"> 
             <div class="d-flex mx-auto px-2 pt-2">
-              <li class="nav-item">
-                <a href="/"> <img class="w-100 mx-4 py-1" style="max-width: 1.5rem;" src="/img/home.svg" alt="home" /> </a>
-             </li>
-             <li class="nav-item">
-                 <a href="/messages"> <img class="w-100 mx-4 py-1" style="max-width: 1.5rem;" src="/img/message.svg" alt="messages" /> </a>
-             </li>
+                <li class="nav-item">
+                    <a href="/"> <img class="w-100 mx-4 py-1" style="max-width: 1.5rem;" src="/img/home.svg" alt="home" /> </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/messages"> <img class="w-100 mx-4 py-1" style="max-width: 1.5rem;" src="/img/message.svg" alt="messages" /> </a>
+                </li>
+                @uploadStory(['drop' => 'dropup'])
+                @enduploadStory
              <li class="nav-item">
                  <a href="/explore"> <img class="w-100 mx-4 py-1" style="max-width: 1.5rem;" src="/img/compass.svg" alt="explore" /> </a>
              </li>

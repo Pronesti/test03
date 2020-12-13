@@ -1,6 +1,6 @@
-<div class="col-lg-8 offset-lg-2 mb-4">
+<div>
     <div class="row">
-        <div class="col-10 offset-1 col-lg-8 offset-lg-2 pb-2 bg-white border border-bottom-0 rounded-top">
+        <div class="col-10 offset-1 col-lg-10 offset-lg-1 pb-2 bg-white border border-bottom-0 rounded-top">
             <div class="d-flex align-items-center pt-2 px-2"> 
                 <div class="pr-3">
                     <img class="w-100 rounded-circle boder border-secondary" style="max-width: 2rem;" src="{{ $post->user->profile->profileImage() }}"   alt="" />
@@ -16,7 +16,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-10 offset-1 col-lg-8 offset-lg-2 bg-white border border-bottom-0 border-top-0">
+        <div class="col-10 offset-1 col-lg-10 offset-lg-1 bg-white border border-bottom-0 border-top-0">
             @if(count($post->images) > 1)
                 @carousel(['id' => $post->id, 'images'=> $post->images])
                 @endcarousel
@@ -25,8 +25,8 @@
             @endif
         </div>
     </div>
-    <div class="row">   
-        <div class="col-10 offset-1 col-lg-8 offset-lg-2 bg-white pt-2 border border-top-0 rounded-bottom">
+    <div class="row mb-4">   
+        <div class="col-10 offset-1 col-lg-10 offset-lg-1 bg-white pt-2 border border-top-0 rounded-bottom">
             <div>
                 <div class="row">
                     <div class="col-12">
