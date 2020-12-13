@@ -7,12 +7,18 @@ use Illuminate\Support\Facades\Auth;
 
 class StoriesController extends Controller
 {
-    public function index(){
+    public function index($array_pos){
         $authUser = Auth::User();
         $ids = $authUser->following()->pluck('profiles.id');
         $stories = \App\Story::whereIn('user_id', $ids)->where('created_at', ">" , \Carbon\Carbon::now()->subDays(1))->get();
-        $users = \App\User::whereIn('id', $stories->pluck('user_id'))->get();
-        return view('stories.index', compact('users','stories'));
+        $users = $stories->pluck('user_id');
+        $users = \App\User::whereIn('id', $users)->get();
+        $from = $users[$array_pos]->id;
+        $from = $stories->search(function($story)use($from){
+            return $story->user_id == $from;
+        });
+        $stories = $stories->slice($from);
+        return view('stories.index', compact('stories'));
     }
 
     public function store(){
