@@ -9,7 +9,7 @@
             @foreach($users as $user)
                 <div>
                     <a href="/stories/">
-                        <img class="rounded-circle w-100 mx-3 mt-3 d-block border border-danger" style="max-width: 3rem" src="{{$user->profile->profileImage()}}" alt="{{$user->username}}" />
+                        <img class="rounded-circle w-100 mx-3 mt-3 d-block" style="max-width: 3rem;box-shadow: white 0px 0px 0px 0.1rem,red 0px 0px 0px 0.2rem;" src="{{$user->profile->profileImage()}}" alt="{{$user->username}}" />
                         <span class="text-decoration-none text-dark d-block ml-3 mb-3">{{$user->username}}</span>
                     </a>
                 </div>
